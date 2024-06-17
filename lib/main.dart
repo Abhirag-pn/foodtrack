@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodtrack/constants/colors.dart';
+import 'package:foodtrack/ui/screens/signinscreen.dart';
 
 import 'ui/screens/loginscreen.dart';
 
@@ -13,8 +14,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
         title: 'FoodTrack',
         theme: ThemeData(
+          
             colorScheme: ColorScheme.fromSeed(seedColor: primary),
             useMaterial3: true,
             elevatedButtonTheme: ElevatedButtonThemeData(
@@ -34,6 +37,6 @@ class MyApp extends StatelessWidget {
 
                   
                 ))),
-        home: const LoginScreen());
+        home: const SignUpScreen());
   }
 }
