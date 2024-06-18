@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-enum FeildType { normal, password }
+enum FeildType { normal, password,search }
 
 class CustomTextFeild extends StatefulWidget {
+
   final String hint;
   final FeildType type;
   const CustomTextFeild({super.key, required this.hint, required this.type});
 
-  @override
+  @override 
   State<CustomTextFeild> createState() => _CustomTextFeildState();
 }
 
@@ -17,9 +18,10 @@ class _CustomTextFeildState extends State<CustomTextFeild> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText: obs,
+      obscureText: widget.type==FeildType.password?obs:false,
       
         decoration: InputDecoration(
+          prefixIcon: widget.type==FeildType.search?const Icon(Icons.search):null,
          suffixIcon: widget.type==FeildType.password?IconButton(icon: Icon(obs?Icons.visibility:Icons.visibility_off),onPressed: (){
           setState(() {
             obs=!obs;

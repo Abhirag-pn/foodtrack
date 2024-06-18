@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodtrack/constants/colors.dart';
+import 'package:foodtrack/ui/screens/addfood.dart';
 import 'package:foodtrack/ui/screens/signinscreen.dart';
 
 import 'ui/screens/homescreen.dart';
@@ -18,6 +19,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'FoodTrack',
         theme: ThemeData(
+          fontFamily: "Poppins",
+          appBarTheme: AppBarTheme(
+            backgroundColor: bgcolor
+          ),
             colorScheme: ColorScheme.fromSeed(seedColor: primary),
             useMaterial3: true,
             outlinedButtonTheme: OutlinedButtonThemeData(
@@ -47,6 +52,6 @@ class MyApp extends StatelessWidget {
                         MediaQuery.of(context).size.height / 40),
                     borderSide:
                         const BorderSide(width: 0, style: BorderStyle.none)))),
-        home: const HomeScreen());
+        home: const  AddFoodScreen());
   }
 }

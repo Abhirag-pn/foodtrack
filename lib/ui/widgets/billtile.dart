@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../../constants/colors.dart';
 
 class BillTile extends StatelessWidget {
+  final String title,subtitle,img;
   const BillTile({
-    super.key,
+    super.key, required this.title, required this.subtitle, required this.img,
   });
 
   @override

@@ -12,6 +12,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: primary,
+        foregroundColor: onprimary,
         onPressed: () {},
         label: const Text("Add new bill"),
       ),
