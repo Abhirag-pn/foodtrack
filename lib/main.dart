@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/screens/addfood.dart';
 import 'package:foodtrack/ui/screens/signinscreen.dart';
@@ -7,6 +8,9 @@ import 'ui/screens/homescreen.dart';
 import 'ui/screens/loginscreen.dart';
 
 void main() {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(const MyApp());
 }
 
