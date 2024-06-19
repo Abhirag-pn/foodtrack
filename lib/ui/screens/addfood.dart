@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/widgets/customtextfeild.dart';
 
+import '../widgets/filterpick.dart';
 import '../widgets/foodtile.dart';
 
 class AddFoodScreen extends StatelessWidget {
@@ -27,32 +28,47 @@ class AddFoodScreen extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
-             const CustomTextFeild(hint: "Search", type: FeildType.search),
+             Container(
+              height: 60,
+              width: double.maxFinite,
+              color: Colors.red,
+             ),
              SizedBox(
               height: MediaQuery.of(context).size.height/12,
               width: double.maxFinite,
               child: ListView(
+                
                 scrollDirection: Axis.horizontal,
-                children: [
-                  UnconstrainedBox(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width/3,
-                      height: MediaQuery.of(context).size.height/15,
-                    decoration: BoxDecoration(
-                      color: secondary,
-                      
-                      borderRadius: BorderRadius.circular(10)
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Image.network("https://static.vecteezy.com/system/resources/previews/019/614/281/non_2x/breakfast-graphic-clipart-design-free-png.png",height: 40,width: 40,),
-                        Text("Breakfast")
-                      ],
-                    ),
-                    ),
+                children:  [
+                  FilterPick(
+                    img: "https://static.vecteezy.com/system/resources/previews/019/614/281/non_2x/breakfast-graphic-clipart-design-free-png.png",
+                    text: "Breakfast",
                   )
                    ,
+                   SizedBox(width: 10,),
+                    FilterPick(
+                      img: "https://purepng.com/public/uploads/large/purepng.com-lunch-boxfood-box-school-lunch-box-lunch-941524636030wxs9g.png",
+                      text: "Lunch",
+                    )
+                   ,
+                   SizedBox(width: 10,),
+                    FilterPick(
+                      img: "https://i0.wp.com/www.treatwell.co.in/wp-content/uploads/2023/01/pazhampori.png?fit=500%2C500&ssl=1",
+                      text: "Snacks",
+                    )
+                   ,
+                   SizedBox(width: 10,),
+                    FilterPick(
+                      img: "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png",
+                      text: "Curry",
+                    ),
+                     SizedBox(width: 10,),
+                    FilterPick(
+                      img: "https://static.vecteezy.com/system/resources/thumbnails/025/230/141/small_2x/fried-fish-carp-and-fresh-lemon-slice-on-transparent-background-free-png.png",
+                      text: "Addons",
+                    ),
+                   
+                    
 
                 ],
               ),
@@ -82,3 +98,4 @@ class AddFoodScreen extends StatelessWidget {
     );
   }
 }
+
