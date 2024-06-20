@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(
                   height: 8,
                 ),
-                OutlinedButton(onPressed: () {}, child: const Text("Pay Now")),
+                OutlinedButton(onPressed: () {}, child:  Text("Pay Now",style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w600),)),
                 const Spacer()
               ],
             ),
@@ -70,7 +70,8 @@ class HomeScreen extends StatelessWidget {
                     child: ListView(
                       padding: const EdgeInsets.only(top: 15,bottom: 15),
                       children: [
-                      
+                      BillTile(title: "Monday,15 June", subtitle: "₹500", img: "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png"),
+                       BillTile(title: "Monday,15 June", subtitle: "₹500", img: "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png")
                       ],
                     ),
                   ),

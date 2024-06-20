@@ -23,6 +23,7 @@ class BillTile extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: MediaQuery.of(context).size.width/14,
+            child: Image.network(img,height: 40,width: 40,),
           ),
           const SizedBox(
             width: 15,
@@ -32,10 +33,10 @@ class BillTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Monday, 18th June",
+                title,
                 style: Theme.of(context).textTheme.labelLarge,
               ),
-              const Text("₹43"),
+               Text(subtitle),
             ],
           ),
           const Spacer(),

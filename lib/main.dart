@@ -8,6 +8,7 @@ import 'ui/screens/homescreen.dart';
 import 'ui/screens/loginscreen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -29,6 +30,10 @@ class MyApp extends StatelessWidget {
           ),
             colorScheme: ColorScheme.fromSeed(seedColor: primary),
             useMaterial3: true,
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
+              foregroundColor: onprimary,
+              backgroundColor: primary
+            ),
             outlinedButtonTheme: OutlinedButtonThemeData(
                 style: OutlinedButton.styleFrom(
                   minimumSize: Size(MediaQuery.of(context).size.width/2.5, MediaQuery.of(context).size.height/15),

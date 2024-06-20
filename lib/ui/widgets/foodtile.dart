@@ -14,7 +14,7 @@ class FoodTile extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.all(0),
-      height: MediaQuery.of(context).size.height / 6,
+      height: MediaQuery.of(context).size.height / 5.8,
       width: double.maxFinite,
       decoration: BoxDecoration(
      

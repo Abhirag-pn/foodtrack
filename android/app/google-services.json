@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "832058840945",
+    "project_id": "foodtrack-434d9",
+    "storage_bucket": "foodtrack-434d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832058840945:android:b9bbb467c4abe0933948d0",
+        "android_client_info": {
+          "package_name": "com.example.foodtrack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkVv5E43nXiwNII7bKWgB3SgqJNaLUnb4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
