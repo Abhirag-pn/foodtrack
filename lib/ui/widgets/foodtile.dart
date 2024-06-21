@@ -18,8 +18,11 @@ class FoodTile extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 5.8,
       width: double.maxFinite,
       decoration: BoxDecoration(
-     
-        color: secondary,
+     gradient: LinearGradient(
+              colors: [ secondary,primary],
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight)
+       ,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
@@ -65,7 +68,7 @@ class FoodTile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10,),
-              Incrementer()
+              const Incrementer()
               ],
             ),
           ),

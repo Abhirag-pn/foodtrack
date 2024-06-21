@@ -65,6 +65,6 @@ class MyApp extends StatelessWidget {
                         MediaQuery.of(context).size.height / 40),
                     borderSide:
                         const BorderSide(width: 0, style: BorderStyle.none)))),
-        home: const  HomeScreen());
+        home: const  AddFoodScreen());
   }
 }

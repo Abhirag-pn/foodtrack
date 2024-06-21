@@ -16,7 +16,7 @@ class AddFoodScreen extends StatelessWidget {
         backgroundColor: primary,
         actions: [
             Text("Amount :",style: Theme.of(context).textTheme.titleMedium,),
-          Incrementer(),
+          const Incrementer(),
           IconButton(onPressed: () {}, icon: const Icon(Icons.done))
         ],
         scrolledUnderElevation: 0,
@@ -33,7 +33,7 @@ class AddFoodScreen extends StatelessWidget {
             height: MediaQuery.of(context).size.height/12,
             width: double.maxFinite,
             child: ListView(
-              padding:EdgeInsets.all(10),
+              padding:const EdgeInsets.all(10),
               
               scrollDirection: Axis.horizontal,
               children:  const [
@@ -73,7 +73,7 @@ class AddFoodScreen extends StatelessWidget {
            ),
           Expanded(
             child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               children:  const [
                
                 FoodTile(),
