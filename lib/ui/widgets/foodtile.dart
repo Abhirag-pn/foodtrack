@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodtrack/ui/widgets/incrementer.dart';
 
 import '../../constants/colors.dart';
 
@@ -64,20 +65,7 @@ class FoodTile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10,),
-              SizedBox(
-                  child: Row(
-                    children: [
-                       IconButton(
-                           onPressed: () {}, icon: const Icon(Icons.horizontal_rule,color: Colors.red,)),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text("4",style: Theme.of(context).textTheme.titleLarge,),
-                              ),
-                      IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.add,color: Colors.green,))
-                    ],
-                  ),
-                )
+              Incrementer()
               ],
             ),
           ),
@@ -86,3 +74,4 @@ class FoodTile extends StatelessWidget {
     );
   }
 }
+

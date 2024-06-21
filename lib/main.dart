@@ -1,14 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/screens/addfood.dart';
-import 'package:foodtrack/ui/screens/signinscreen.dart';
+import 'package:foodtrack/ui/screens/homescreen.dart';
 
-import 'ui/screens/homescreen.dart';
-import 'ui/screens/loginscreen.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -61,6 +65,6 @@ class MyApp extends StatelessWidget {
                         MediaQuery.of(context).size.height / 40),
                     borderSide:
                         const BorderSide(width: 0, style: BorderStyle.none)))),
-        home: const  AddFoodScreen());
+        home: const  HomeScreen());
   }
 }

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/widgets/authfooter.dart';
 
 import '../widgets/authheader.dart';
@@ -45,7 +43,7 @@ class SignUpScreen extends StatelessWidget {
               height: 20,
             ),
             const Spacer(),
-           AuthFooter(text1: "Already have an account ? ", text2: "Login"),
+           const AuthFooter(text1: "Already have an account ? ", text2: "Login"),
             const SizedBox(
               height: 10,
             )

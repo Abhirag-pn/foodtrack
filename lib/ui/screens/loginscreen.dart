@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/widgets/authfooter.dart';
 import 'package:foodtrack/ui/widgets/authheader.dart';
 import 'package:foodtrack/ui/widgets/customtextfeild.dart';
@@ -26,14 +23,14 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            CustomTextFeild(
+            const CustomTextFeild(
               hint: "Email",
               type: FeildType.normal,
             ),
             const SizedBox(
               height: 20,
             ),
-            CustomTextFeild(
+            const CustomTextFeild(
               hint: "Password",
               type: FeildType.password,
             ),
