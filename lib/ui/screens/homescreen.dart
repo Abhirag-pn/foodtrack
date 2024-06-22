@@ -73,9 +73,8 @@ class HomeScreen extends StatelessWidget {
                               child: const Icon(Icons.person_2_outlined))
                         ],
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      Divider(color: onprimary,),
+                    
                       const Text("Amount to be paid"),
                       Text(
                         "₹233",
@@ -103,7 +102,10 @@ class HomeScreen extends StatelessWidget {
                                     MediaQuery.of(context).size.height / 15),
                                 backgroundColor: onprimary,
                                 foregroundColor: secondary),
-                            child: const Text("Pay Now"),
+                            child:  Text("Pay Now",style:  Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(fontWeight: FontWeight.w600,color: secondary),),
                           )),
                           const SizedBox(
                             width: 10,
@@ -155,6 +157,7 @@ class HomeScreen extends StatelessWidget {
                               .copyWith(fontWeight: FontWeight.w500),
                         ),
                       ),
+                      SizedBox(height: 10,),
                       Expanded(
                         child: ListView(
                           padding: const EdgeInsets.only(top: 15, bottom: 15),
@@ -169,7 +172,37 @@ class HomeScreen extends StatelessWidget {
                                 subtitle: "₹500",
                                 img:
                                     "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png")
-                          ],
+                          ,
+                            BillTile(
+                                title: "Monday,15 June",
+                                subtitle: "₹500",
+                                img:
+                                    "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png"),
+                            BillTile(
+                                title: "Monday,15 June",
+                                subtitle: "₹500",
+                                img:
+                                    "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png"),
+                                      BillTile(
+                                title: "Monday,15 June",
+                                subtitle: "₹500",
+                                img:
+                                    "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png"),
+                            BillTile(
+                                title: "Monday,15 June",
+                                subtitle: "₹500",
+                                img:
+                                    "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png"),
+                                      BillTile(
+                                title: "Monday,15 June",
+                                subtitle: "₹500",
+                                img:
+                                    "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png"),
+                            BillTile(
+                                title: "Monday,15 June",
+                                subtitle: "₹500",
+                                img:
+                                    "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png")],
                         ),
                       ),
                     ],

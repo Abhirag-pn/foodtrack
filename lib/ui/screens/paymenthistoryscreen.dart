@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/widgets/billtile.dart';
 
 class PaymentHistoryScreen extends StatelessWidget {
@@ -7,9 +8,10 @@ class PaymentHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Bill History"),),
+      appBar: AppBar(title: Text("Bill History"),backgroundColor: primary,leading: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_ios)),),
       body: 
-      Column(
+      ListView(
+        padding: EdgeInsets.all(10),
         children: [
            BillTile(
                                 title: "Monday,15 June",
