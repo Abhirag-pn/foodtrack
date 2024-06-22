@@ -8,11 +8,11 @@ class PaymentHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Bill History"),backgroundColor: primary,leading: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back_ios)),),
+      appBar: AppBar(title: const Text("Bill History"),backgroundColor: primary,leading: IconButton(onPressed: (){}, icon: const Icon(Icons.arrow_back_ios)),),
       body: 
       ListView(
-        padding: EdgeInsets.all(10),
-        children: [
+        padding: const EdgeInsets.all(10),
+        children: const [
            BillTile(
                                 title: "Monday,15 June",
                                 subtitle: "₹500",
