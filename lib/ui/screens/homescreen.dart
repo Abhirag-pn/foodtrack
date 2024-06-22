@@ -148,7 +148,7 @@ class HomeScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.topCenter,
                         child: Text(
-                          'Bill history',
+                          'Bill Contents',
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge!
