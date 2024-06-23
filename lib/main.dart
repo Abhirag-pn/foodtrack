@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/screens/addfoodscreen.dart';
 import 'package:foodtrack/ui/screens/adminprofileexpandedscreen.dart';
+import 'package:foodtrack/ui/screens/adminscreen.dart';
 
 import 'package:foodtrack/ui/screens/homescreen.dart';
 import 'package:foodtrack/ui/screens/paymenthistoryscreen.dart';
@@ -68,6 +69,6 @@ class MyApp extends StatelessWidget {
                         MediaQuery.of(context).size.height / 40),
                     borderSide:
                         const BorderSide(width: 0, style: BorderStyle.none)))),
-        home: const  AdminProfileExpandedScreen());
+        home: const  AdminHomeScreen());
   }
 }
