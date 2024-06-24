@@ -8,6 +8,8 @@ import 'package:foodtrack/ui/screens/adminscreen.dart';
 
 import 'package:foodtrack/ui/screens/homescreen.dart';
 import 'package:foodtrack/ui/screens/paymenthistoryscreen.dart';
+import 'package:foodtrack/ui/screens/profilescreen.dart';
+import 'package:foodtrack/ui/screens/signinscreen.dart';
 
 import 'firebase_options.dart';
 
@@ -69,6 +71,6 @@ class MyApp extends StatelessWidget {
                         MediaQuery.of(context).size.height / 40),
                     borderSide:
                         const BorderSide(width: 0, style: BorderStyle.none)))),
-        home: const  AdminHomeScreen());
+        home:  Profilescreen());
   }
 }

@@ -31,6 +31,10 @@ class SignUpScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
+              const CustomTextFeild(hint: "Username",type: FeildType.normal,),
+              const SizedBox(
+              height: 20,
+            ),
              const CustomTextFeild(hint: "Password",type: FeildType.password,),
              const SizedBox(
               height: 20,
