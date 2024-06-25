@@ -2,14 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodtrack/constants/colors.dart';
-import 'package:foodtrack/ui/screens/addfoodscreen.dart';
-import 'package:foodtrack/ui/screens/adminprofileexpandedscreen.dart';
-import 'package:foodtrack/ui/screens/adminscreen.dart';
 
-import 'package:foodtrack/ui/screens/homescreen.dart';
-import 'package:foodtrack/ui/screens/paymenthistoryscreen.dart';
 import 'package:foodtrack/ui/screens/profilescreen.dart';
-import 'package:foodtrack/ui/screens/signinscreen.dart';
 
 import 'firebase_options.dart';
 
@@ -71,6 +65,6 @@ class MyApp extends StatelessWidget {
                         MediaQuery.of(context).size.height / 40),
                     borderSide:
                         const BorderSide(width: 0, style: BorderStyle.none)))),
-        home:  Profilescreen());
+        home:  const Profilescreen());
   }
 }

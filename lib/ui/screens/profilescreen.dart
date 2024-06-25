@@ -33,13 +33,15 @@ class Profilescreen extends StatelessWidget {
                       .textTheme
                       .titleLarge!
                       .copyWith(fontWeight: FontWeight.w700)),
-              Expanded(
+              const Expanded(
                   child: Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: EdgeInsets.all(15.0),
                 child: Column(
                   children: [
                     ProfileButton(text: "Close",icon: Icons.close,),
                     SizedBox(height: 10,),
+                      ProfileButton(text: "Logout",icon: Icons.logout,),
+                       SizedBox(height: 10,),
                       ProfileButton(text: "Logout",icon: Icons.logout,),
                   ],
                 ),
@@ -49,7 +51,7 @@ class Profilescreen extends StatelessWidget {
           Positioned(
             top: MediaQuery.of(context).size.height / 11,
             child: CircleAvatar(
-              backgroundImage: NetworkImage(
+              backgroundImage: const NetworkImage(
                   "https://cdn.openart.ai/stable_diffusion/93dc20ff655adb978b3fd4f8c8e010bd0b3bf8ff_2000x2000.webp"),
               radius: MediaQuery.of(context).size.height / 10,
             ),
