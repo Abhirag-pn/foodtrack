@@ -11,8 +11,8 @@ class AdminHomeScreen extends StatelessWidget {
     return  Scaffold(
       appBar: AppBar(title: const Text("Admin Panel"),backgroundColor: primary,),
       body: ListView(
-        children: [
-          const CustomTile(title: "Shibin Suresh", subtitle: "23 pending", img: "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg")
+        children: const [
+          CustomTile(title: "Shibin Suresh", subtitle: "23 pending", img: "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg")
         ],),
     );
   }

@@ -9,9 +9,9 @@ class AuthHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-          SvgPicture.asset(img,height: MediaQuery.of(context).size.height/4,),
+          SvgPicture.asset(img,height: MediaQuery.of(context).size.height/4.5,),
             const SizedBox(
-              height: 20,
+              height: 40,
             ),
             Align(
               alignment: Alignment.centerLeft,

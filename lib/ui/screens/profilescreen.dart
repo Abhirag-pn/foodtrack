@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:foodtrack/constants/colors.dart';
 
 import '../widgets/profilebutton.dart';
@@ -33,16 +32,36 @@ class Profilescreen extends StatelessWidget {
                       .textTheme
                       .titleLarge!
                       .copyWith(fontWeight: FontWeight.w700)),
-              const Expanded(
+              Expanded(
                   child: Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(15.0),
                 child: Column(
                   children: [
-                    ProfileButton(text: "Close",icon: Icons.close,),
-                    SizedBox(height: 10,),
-                      ProfileButton(text: "Logout",icon: Icons.logout,),
-                       SizedBox(height: 10,),
-                      ProfileButton(text: "Logout",icon: Icons.logout,),
+                  
+                    const ProfileButton(
+                      text: "Change Username",
+                      icon: Icons.close,
+                      clr: Colors.green,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ProfileButton(
+                      text: "Close",
+                      icon: Icons.close,
+                      clr: onprimary,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const ProfileButton(
+                      text: "Logout",
+                      icon: Icons.logout,
+                      clr: Colors.red,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                   ],
                 ),
               ))
@@ -61,4 +80,3 @@ class Profilescreen extends StatelessWidget {
     );
   }
 }
-

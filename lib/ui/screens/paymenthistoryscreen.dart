@@ -8,18 +8,20 @@ class PaymentHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Bill History"),backgroundColor: primary,leading: IconButton(onPressed: (){}, icon: const Icon(Icons.arrow_back_ios)),),
-      body: 
-      ListView(
-        padding: const EdgeInsets.all(10),
-        children: const [
-           BillTile(
-                                title: "Monday,15 June",
-                                subtitle: "₹500",
-                                img:
-                                    "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png")
-        ]
+      appBar: AppBar(
+        title: const Text("Bill History"),
+        backgroundColor: primary,
+        leading: IconButton(
+            onPressed: () {}, icon: const Icon(Icons.arrow_back_ios)),
       ),
+      body: ListView(padding: const EdgeInsets.all(10), children:  [
+        
+        BillTile(
+            title: "Monday,15 June",
+            subtitle: "₹500",
+            img:
+                "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png")
+      ]),
     );
   }
 }

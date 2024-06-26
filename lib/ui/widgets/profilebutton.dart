@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class ProfileButton extends StatelessWidget {
   final String text;
   final IconData icon;
+  final Color clr;
   const ProfileButton({
-    super.key, required this.text, required this.icon,
+    super.key, required this.text, required this.icon, required this.clr,
   });
 
   @override
@@ -24,12 +25,12 @@ class ProfileButton extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .labelLarge!
-                .copyWith(fontWeight: FontWeight.w600),
+                .copyWith(fontWeight: FontWeight.w600,color: clr),
           ),
-          Spacer(),
+          const Spacer(),
           GestureDetector(
             onTap: () {},
-            child: Icon(icon),
+            child: Icon(icon,color: clr,),
           )
         ],
       ),

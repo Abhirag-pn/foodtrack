@@ -5,12 +5,12 @@ import 'package:foodtrack/ui/widgets/customtextfeild.dart';
 
 import '../../constants/colors.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class Adminloginscreen extends StatelessWidget {
+  const Adminloginscreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
@@ -18,12 +18,12 @@ class LoginScreen extends StatelessWidget {
           children: [
             const Spacer(),
             const AuthHeader(
-              subtitle: "Login with your account to continue",
-              title: "Login",
-              img: "assets/images/authbg.svg",
+              subtitle: "Enter admin credentials to continue",
+              title: "Admin Login",
+              img: "assets/images/adminauth.svg",
             ),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             const CustomTextFeild(
               hint: "Email",
@@ -44,13 +44,10 @@ class LoginScreen extends StatelessWidget {
               height: 20,
             ),
             const Spacer(),
-          const   AuthFooter(text1:  "Dont have an account? ",text2: "Register",),
-            const SizedBox(
-              height: 10,
-            ),
-             TextButton(
+         
+          TextButton(
             style: TextButton.styleFrom(backgroundColor: secondary),
-            onPressed: (){}, child: Text("Admin Login",))
+            onPressed: (){}, child: Text("User Login",))
           ],
         ),
       ),

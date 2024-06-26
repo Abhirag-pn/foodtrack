@@ -146,7 +146,7 @@ class AdminProfileExpandedScreen extends StatelessWidget {
                               .copyWith(fontWeight: FontWeight.w500),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      const SizedBox(height: 10,),
                       Expanded(
                         child: ListView(
                           padding: const EdgeInsets.only(top: 15, bottom: 15),
