@@ -35,15 +35,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               .createUserWithEmailAndPassword(
                   email: event.email, password: event.password);
 
-          UserModel userinfo = UserModel(   id: credential.user!.uid,
+          UserModel userinfo = UserModel(
+              id: credential.user!.uid,
               email: credential.user!.email!,
               name: event.username,
-              role:'user');
+              role: 'user');
           await FirebaseFirestore.instance
               .collection("users")
               .doc(credential.user!.uid)
               .set(userinfo.toMap());
-        
         } on FirebaseAuthException catch (err) {
           String? message;
           if (err.code.isNotEmpty) {
@@ -61,18 +61,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
 
     on<ToggleSignUp>(
-      (event, emit) {},
+      (event, emit) {
+        emit(UserSignUpState());
+      },
     );
 
     on<ToggleLogin>(
-      (event, emit) {},
+      (event, emit) {
+        emit(UserLoginState());
+      },
     );
 
     on<ToggleAdminLogin>(
-      (event, emit) {},
+      (event, emit) {
+        emit(AdminLoginState());
+      },
     );
     on<ToggleUserLogin>(
-      (event, emit) {},
+      (event, emit) {
+        emit(UserLoginState());
+      },
     );
   }
 }

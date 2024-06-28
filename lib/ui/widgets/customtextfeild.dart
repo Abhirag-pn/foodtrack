@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 enum FeildType { normal, password,search }
 
 class CustomTextFeild extends StatefulWidget {
-
+  final TextEditingController ctrlr;
   final String hint;
   final FeildType type;
-  const CustomTextFeild({super.key, required this.hint, required this.type});
+  const CustomTextFeild({super.key, required this.hint, required this.type, required this.ctrlr});
 
   @override 
   State<CustomTextFeild> createState() => _CustomTextFeildState();
@@ -17,6 +17,7 @@ class _CustomTextFeildState extends State<CustomTextFeild> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: tcontroller,
       obscureText: widget.type==FeildType.password?obs:false,
       
         decoration: InputDecoration(
