@@ -6,6 +6,7 @@ import 'package:foodtrack/ui/widgets/customtextfeild.dart';
 import '../../constants/colors.dart';
 
 class Adminloginscreen extends StatefulWidget {
+   static const routename='adminlogin';
   const Adminloginscreen({super.key});
 
   @override

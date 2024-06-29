@@ -4,6 +4,7 @@ import 'package:foodtrack/constants/colors.dart';
 import '../widgets/profilebutton.dart';
 
 class Profilescreen extends StatelessWidget {
+   static const routename='profile';
   const Profilescreen({super.key});
 
   @override

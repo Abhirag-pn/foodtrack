@@ -4,6 +4,7 @@ import 'package:foodtrack/constants/colors.dart';
 import '../widgets/billtile.dart';
 
 class HomeScreen extends StatelessWidget {
+   static const routename='home';
   const HomeScreen({super.key});
 
   @override

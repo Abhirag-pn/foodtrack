@@ -4,6 +4,7 @@ import 'package:foodtrack/constants/colors.dart';
 import '../widgets/billtile.dart';
 
 class AdminProfileExpandedScreen extends StatelessWidget {
+   static const routename='adminprofileexpand';
   const AdminProfileExpandedScreen({super.key});
 
   @override

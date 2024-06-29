@@ -4,6 +4,7 @@ import 'package:foodtrack/constants/colors.dart';
 import '../widgets/customtile.dart';
 
 class AdminHomeScreen extends StatelessWidget {
+   static const routename='adminhome';
   const AdminHomeScreen({super.key});
 
   @override

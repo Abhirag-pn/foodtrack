@@ -6,6 +6,7 @@ import '../widgets/filterpick.dart';
 import '../widgets/foodtile.dart';
 
 class AddFoodScreen extends StatelessWidget {
+   static const routename='addfood';
   const AddFoodScreen({super.key});
 
   @override

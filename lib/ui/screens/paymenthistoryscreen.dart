@@ -3,6 +3,7 @@ import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/widgets/billtile.dart';
 
 class PaymentHistoryScreen extends StatelessWidget {
+   static const routename='paymenthistory';
   const PaymentHistoryScreen({super.key});
 
   @override
