@@ -10,9 +10,9 @@ class LoginRequestEvent extends AuthEvent{
 }
 
 class CreateAccountEvent extends AuthEvent {
- final String username,email,password;
+ final String username,email,password,cpassword;
 
-  CreateAccountEvent({required this.username, required this.email, required this.password});
+  CreateAccountEvent( {required this.cpassword,required this.username, required this.email, required this.password });
 
 }
 

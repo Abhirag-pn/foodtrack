@@ -31,6 +31,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<CreateAccountEvent>(
       (event, emit) async {
         try {
+            Future<bool> validateUsername(String? username) async {
+
+
+    final userCollection = FirebaseFirestore.instance.collection('users');
+    final querySnapshot = await userCollection.where('username', isEqualTo: username).get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      return true;
+    }
+
+    return false;
+  }
+
+
+          final existUser = await validateUsername(event.cpassword);
+
+  
+
+    if (existUser) {
+      emit(AuthErrorState(errormessage: "Username already exists"));
+    }
+
           UserCredential credential = await FirebaseAuth.instance
               .createUserWithEmailAndPassword(
                   email: event.email, password: event.password);
