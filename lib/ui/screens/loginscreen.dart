@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtrack/bloc/authbloc/auth_bloc.dart';
 import 'package:foodtrack/ui/screens/adminloginscreen.dart';
+import 'package:foodtrack/ui/screens/adminscreen.dart';
 import 'package:foodtrack/ui/screens/homescreen.dart';
 import 'package:foodtrack/ui/screens/signinscreen.dart';
 import 'package:foodtrack/ui/widgets/authfooter.dart';
@@ -49,7 +50,12 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pushReplacementNamed(context, Adminloginscreen.routename);
           } else if (state is AuthSuccessState) {
             Navigator.popUntil(context, (route) => route.isFirst);
+            
             Navigator.pushReplacementNamed(context, HomeScreen.routename);
+          } else if (state is AdminAuthSuccessState) {
+            Navigator.popUntil(context, (route) => route.isFirst);
+            
+            Navigator.pushReplacementNamed(context, AdminHomeScreen.routename);
           } else if (state is AuthErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

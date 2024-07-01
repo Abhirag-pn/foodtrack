@@ -15,6 +15,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         UserCredential credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(
                 email: event.email, password: event.password);
+
+        if (credential.user != null) {
+          final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+          final docSnapshot = await _firestore
+              .collection('users')
+              .doc(credential.user!.uid)
+              .get();
+          if (docSnapshot.data()?['role'] == 'admin') {
+            emit(AdminAuthSuccessState());
+          } else {
+            emit(AuthSuccessState());
+          }
+        }
       } on FirebaseException catch (err) {
         String? message;
         if (err.code.isNotEmpty) {
@@ -31,41 +44,39 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<CreateAccountEvent>(
       (event, emit) async {
         try {
-            Future<bool> validateUsername(String? username) async {
+          Future<bool> validateUsername(String? username) async {
+            final userCollection =
+                FirebaseFirestore.instance.collection('users');
+            final querySnapshot =
+                await userCollection.where('name', isEqualTo: username).get();
 
+            if (querySnapshot.docs.isNotEmpty) {
+              return true;
+            } else {
+              return false;
+            }
+          }
 
-    final userCollection = FirebaseFirestore.instance.collection('users');
-    final querySnapshot = await userCollection.where('username', isEqualTo: username).get();
+          final existUser = await validateUsername(event.username);
 
-    if (querySnapshot.docs.isNotEmpty) {
-      return true;
-    }
+          if (existUser) {
+            emit(AuthErrorState(errormessage: "Username already exists"));
+          } else {
+            UserCredential credential = await FirebaseAuth.instance
+                .createUserWithEmailAndPassword(
+                    email: event.email, password: event.password);
 
-    return false;
-  }
-
-
-          final existUser = await validateUsername(event.cpassword);
-
-  
-
-    if (existUser) {
-      emit(AuthErrorState(errormessage: "Username already exists"));
-    }
-
-          UserCredential credential = await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(
-                  email: event.email, password: event.password);
-
-          UserModel userinfo = UserModel(
-              id: credential.user!.uid,
-              email: credential.user!.email!,
-              name: event.username,
-              role: 'user');
-          await FirebaseFirestore.instance
-              .collection("users")
-              .doc(credential.user!.uid)
-              .set(userinfo.toMap());
+            UserModel userinfo = UserModel(
+                id: credential.user!.uid,
+                email: credential.user!.email!,
+                name: event.username,
+                role: 'user');
+            await FirebaseFirestore.instance
+                .collection("users")
+                .doc(credential.user!.uid)
+                .set(userinfo.toMap());
+                emit(AuthSuccessState());
+          }
         } on FirebaseAuthException catch (err) {
           String? message;
           if (err.code.isNotEmpty) {

@@ -66,7 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           } else if (state is AuthSuccessState) {
             Navigator.popUntil(context, (route) => route.isFirst);
             Navigator.pushReplacementNamed(context, HomeScreen.routename);
-          } else if (state is AuthErrorState) {
+          } else if (state is AuthErrorState){
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: Colors.red,
