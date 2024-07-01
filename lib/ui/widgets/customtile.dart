@@ -34,9 +34,9 @@ class CustomTile extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: Theme.of(context).textTheme.labelLarge,
+                style: Theme.of(context).textTheme.labelMedium,
               ),
-               Text(subtitle),
+               Text(subtitle,style: Theme.of(context).textTheme!.labelSmall,),
             ],
           ),
           const Spacer(),

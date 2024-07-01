@@ -18,10 +18,7 @@ class FoodTile extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 5.8,
       width: double.maxFinite,
       decoration: BoxDecoration(
-     gradient: LinearGradient(
-              colors: [ secondary,primary],
-              begin: Alignment.bottomLeft,
-              end: Alignment.topRight)
+     color: secondary
        ,
         borderRadius: BorderRadius.circular(10),
       ),
