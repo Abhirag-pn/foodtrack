@@ -22,76 +22,86 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           showDialog(
               context: context,
               builder: (_) {
-                return AlertDialog(
-                  backgroundColor: bgcolor,
-                  title: Text("Enter details",
-                      style: Theme.of(context).textTheme.titleMedium),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CustomTextFeild(
-                          hint: "Name",
-                          type: FeildType.normal,
-                          ctrlr: TextEditingController()),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      CustomTextFeild(
-                          hint: "Price",
-                          type: FeildType.normal,
-                          ctrlr: TextEditingController()),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      CustomTextFeild(
-                          hint: "Image link",
-                          type: FeildType.normal,
-                          ctrlr: TextEditingController()),
-                      Row(
-                        children: [
-                          Text("Type:"),
-                          Spacer(),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: secondary,
-                              borderRadius: BorderRadius.circular(
-                                  MediaQuery.of(context).size.height / 40),
-                            ),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                                  dropdownColor: bgcolor,
-                                  elevation: 0,
-                                  value: dvalue,
-                                  items: const [
-                                    DropdownMenuItem(
-                                      value: "Breakfast",
-                                      child: Text("Breakfast"),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: "Lunch",
-                                      child: Text("Lunch"),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: "Snacks",
-                                      child: Text("Snacks"),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: "Beverage",
-                                      child: Text("Beverage"),
-                                    ),
-                                  ],
-                                  onChanged: (value) {
-                                    setState(() {
-                                      dvalue = value!;
-                                    });
-                                  }),
-                            ),
+                return StatefulBuilder(builder: (context, setState) =>AlertDialog(
+                    backgroundColor: bgcolor,
+                    title: Text("Enter food details",
+                        style: Theme.of(context).textTheme.titleMedium),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CustomTextFeild(
+                            hint: "Name",
+                            type: FeildType.normal,
+                            ctrlr: TextEditingController()),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        CustomTextFeild(
+                            hint: "Price",
+                            type: FeildType.normal,
+                            ctrlr: TextEditingController()),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        CustomTextFeild(
+                            hint: "Image link",
+                            type: FeildType.normal,
+                            ctrlr: TextEditingController()),
+                              SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.width/25),
+                          decoration: BoxDecoration(
+                                color: secondary,
+                                borderRadius: BorderRadius.circular(
+                                    MediaQuery.of(context).size.height / 40),
+                              ),
+                          child: Row(
+                            children: [
+                              Text("Type:"),
+                              Spacer(),
+                               DropdownButtonHideUnderline(
+                                  child: DropdownButton(
+                                      dropdownColor: bgcolor,
+                                      elevation: 0,
+                                      value: dvalue,
+                                      items: const [
+                                        DropdownMenuItem(
+                                          value: "Breakfast",
+                                          child: Text("Breakfast"),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: "Lunch",
+                                          child: Text("Lunch"),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: "Snacks",
+                                          child: Text("Snacks"),
+                                        ),
+                                        DropdownMenuItem(
+                                          value: "Beverage",
+                                          child: Text("Beverage"),
+                                        ),
+                                      ],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          dvalue = value!;
+                                        });
+                                      }),
+                                ),
+                              
+                            ],
                           ),
-                        ],
-                      ),
-                      ElevatedButton(onPressed: () {}, child: Text("Add food"))
-                    ],
-                  ),
+                        ),
+                         SizedBox(
+                          height: 10,
+                        ),
+                        ElevatedButton(onPressed: () {}, child: Text("Add food"))
+                      ],
+                    ),
+                  ) ,
+                 
                 );
               });
         },
