@@ -7,7 +7,7 @@ import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/screens/addfoodscreen.dart';
 import 'package:foodtrack/ui/screens/adminloginscreen.dart';
 import 'package:foodtrack/ui/screens/adminprofileexpandedscreen.dart';
-import 'package:foodtrack/ui/screens/adminscreen.dart';
+import 'package:foodtrack/ui/screens/adminhomescreen.dart';
 import 'package:foodtrack/ui/screens/billexpandscreen.dart';
 import 'package:foodtrack/ui/screens/homescreen.dart';
 import 'package:foodtrack/ui/screens/loginscreen.dart';

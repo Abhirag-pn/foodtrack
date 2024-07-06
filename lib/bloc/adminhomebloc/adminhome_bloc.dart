@@ -1,0 +1,43 @@
+import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meta/meta.dart';
+import '../../models/foodmodel.dart';
+import '../../models/usermodel.dart';
+
+part 'adminhome_event.dart';
+part 'adminhome_state.dart';
+
+class AdminhomeBloc extends Bloc<AdminhomeEvent, AdminhomeState> {
+  AdminhomeBloc() : super(AdminhomeInitial()) {
+    on<GetUsersEvent>((event, emit) async {
+      emit(AdminHomeLoadingState());
+      try {
+        var snapshot = await FirebaseFirestore.instance.collection('users').get();
+        var users = snapshot.docs.map((doc) {
+          return UserModel.fromMap(doc.data());
+        }).toList();
+        emit(UsersLoadedState(users: users));
+      } catch (e) {
+        emit(AdminHomeErrorState(errmsg: e.toString()));
+      }
+    });
+
+    on<AddFoodRequestEvent>((event, emit) async {
+      try {
+        final foodCollection = FirebaseFirestore.instance.collection('fooditems');
+        final docRef = foodCollection.doc();
+        final newfood = Food(
+          id: docRef.id,
+          name: event.name,
+          price: event.price,
+          type: event.type,
+          imageLink: event.imagelink
+        );
+        await docRef.set(newfood.toMap());
+        emit(FoodAddedState());
+      } catch (e) {
+        emit(AdminHomeErrorState(errmsg: e.toString()));
+      }
+    });
+  }
+}

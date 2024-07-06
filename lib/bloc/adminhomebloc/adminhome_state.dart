@@ -1,0 +1,23 @@
+part of 'adminhome_bloc.dart';
+
+@immutable
+sealed class AdminhomeState {}
+
+final class AdminhomeInitial extends AdminhomeState {}
+
+class UsersLoadedState extends AdminhomeState {
+  final List<UserModel> users;
+
+  UsersLoadedState({required this.users});
+}
+class AdminHomeLoadingState extends AdminhomeState {}
+class AdminHomeErrorState extends AdminhomeState {
+  final String errmsg;
+
+  AdminHomeErrorState({required this.errmsg});
+}
+
+class UserExpandedState extends AdminhomeState {}
+class FoodAddedState extends AdminhomeState {
+  
+}
