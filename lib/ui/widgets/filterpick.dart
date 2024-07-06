@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../../constants/colors.dart';
 
 class FilterPick extends StatefulWidget {
+  final void Function(bool selected) actionFunction;
   final String text,img;
   const FilterPick({
-    super.key, required this.text, required this.img,
+    super.key, required this.text, required this.img, required this.actionFunction,
   });
 
   @override
@@ -19,6 +20,8 @@ class _FilterPickState extends State<FilterPick> {
     return GestureDetector(
       onTap: (){
         selected=!selected;
+        
+        widget.actionFunction(selected);
         setState(() {
           
         });

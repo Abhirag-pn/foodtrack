@@ -38,10 +38,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.errmsg)));
           }
-           if (state is FoodAddedState) {
+          if (state is FoodAddedState) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Food added successfully!'))
-            );
+                const SnackBar(content: Text('Food added successfully!')));
             adminhomebloc.add(GetUsersEvent());
           }
         },
@@ -58,27 +57,32 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               backgroundColor: primary,
             ),
             body: state is AdminHomeLoadingState
-                ? Center(
-                    child: CircularProgressIndicator(),
+                ? const Center(
+                    child: const CircularProgressIndicator(),
                   )
                 : state is UsersLoadedState
-                    ? ListView.separated(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 8),
-                        itemCount: state.users.length,
-                        separatorBuilder: (context, index) => const SizedBox(
-                          height: 10,
-                        ),
-                        itemBuilder: (context, index) {
-                          return CustomTile(
-                            title: state.users[index].name,
-                            subtitle: "pending",
-                            img:
-                                "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
-                          );
-                        },
-                      )
-                    : Center(
+                    ? state.users.isEmpty
+                        ? const Center(
+                            child: Text("No users found"),
+                          )
+                        : ListView.separated(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 8),
+                            itemCount: state.users.length,
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                              height: 10,
+                            ),
+                            itemBuilder: (context, index) {
+                              return CustomTile(
+                                title: state.users[index].name,
+                                subtitle: "pending",
+                                img:
+                                    "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
+                              );
+                            },
+                          )
+                    : const Center(
                         child: Text("Whoops Something went wrong"),
                       ),
           );
@@ -103,12 +107,12 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CustomTextFeild(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a name';
-                      }
-                      return null;
-                    },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a name';
+                        }
+                        return null;
+                      },
                       hint: "Name",
                       type: FeildType.normal,
                       ctrlr: nameController),
@@ -116,15 +120,15 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     height: 5,
                   ),
                   CustomTextFeild(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a price';
-                      }
-                      if (double.tryParse(value) == null) {
-                        return 'Please enter a valid price';
-                      }
-                      return null;
-                    },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a price';
+                        }
+                        if (double.tryParse(value) == null) {
+                          return 'Please enter a valid price';
+                        }
+                        return null;
+                      },
                       hint: "Price",
                       type: FeildType.normal,
                       ctrlr: priceController),
@@ -132,12 +136,12 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     height: 5,
                   ),
                   CustomTextFeild(
-                    validator:  (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter an image link';
-                      }
-                      return null;
-                    },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter an image link';
+                        }
+                        return null;
+                      },
                       hint: "Image link",
                       type: FeildType.normal,
                       ctrlr: linkController),
@@ -194,18 +198,16 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                      if(_formKey.currentState!.validate())
-                      {
+                        if (_formKey.currentState!.validate()) {
                           adminhomebloc.add(AddFoodRequestEvent(
-                            imagelink: linkController.text.trim(),
-                            name: nameController.text.trim(),
-                            price: double.parse(
-                              priceController.text.trim(),
-                            ),
-                            type: dvalue));
-                            Navigator.of(context).pop();
-                          
-                      }
+                              imagelink: linkController.text.trim(),
+                              name: nameController.text.trim(),
+                              price: double.parse(
+                                priceController.text.trim(),
+                              ),
+                              type: dvalue));
+                          Navigator.of(context).pop();
+                        }
                       },
                       child: const Text("Add food"))
                 ],
