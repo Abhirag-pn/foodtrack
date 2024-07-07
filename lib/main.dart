@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
                         MediaQuery.of(context).size.height / 40),
                     borderSide:
                         const BorderSide(width: 0, style: BorderStyle.none)))),
-        home: const AddFoodScreen(),
+        home: const HomeScreen(),
         routes: {
           SignUpScreen.routename: (context) => const SignUpScreen(),
           LoginScreen.routename: (context) => const LoginScreen(),

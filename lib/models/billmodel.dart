@@ -4,12 +4,14 @@ import 'foodmodel.dart';
 class Bill {
   final String id;
   final String date;
+  final double total;
   final List<Food> items;
   bool ispaid;
 
 
-  Bill({
+  Bill( {
     required this.id,
+   required this.total,
      this.ispaid=false,
     required this.date,
     required this.items,
@@ -18,6 +20,7 @@ class Bill {
   });
 
   factory Bill.fromMap(Map<String, dynamic> data) => Bill(
+    total: data['total'],
         id: data['id'] as String,
        ispaid: data['ispaid'],
         date: data['date'] as String,
@@ -30,7 +33,7 @@ class Bill {
 
   Map<String, dynamic> toMap() => {
         'id': id,
-        
+        'total':total,
         'date': date,
         'items': items.map((item) => item.toMap()).toList(),
         'ispaid':ispaid

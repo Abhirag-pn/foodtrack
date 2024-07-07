@@ -47,6 +47,9 @@ class AddfoodBloc extends Bloc<AddfoodEvent, AddfoodState> {
             FirebaseFirestore.instance.collection('users').doc(userId);
         final billdocRef = userDocRef.collection('bills').doc();
         final newbill = Bill(
+          total:event.items
+                      .fold<double>(0, (sum, food) => sum + food.price)
+                       ,
           id: billdocRef.id,
           date: DateFormat('EEEE, d MMMM').format(DateTime.now()).toString(),
           items: event.items,

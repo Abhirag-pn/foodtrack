@@ -43,8 +43,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final formValid = _formKey.currentState!.validate();
     if (!formValid) return;
 
-    
-    // Proceed with form submission
     BlocProvider.of<AuthBloc>(context).add(
       CreateAccountEvent(
         username: usernameController.text,
