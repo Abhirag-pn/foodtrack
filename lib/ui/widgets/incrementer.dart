@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class Incrementer extends StatefulWidget {
   final void Function() minusFunction,addFunction;
+  final int? ucount;
   const Incrementer({
     
-    super.key, required this.minusFunction, required this.addFunction,
+    super.key, required this.minusFunction, required this.addFunction, this.ucount=0,
   });
 
   @override
@@ -12,7 +13,14 @@ class Incrementer extends StatefulWidget {
 }
 
 class _IncrementerState extends State<Incrementer> {
-  int count=0;
+  late int count;
+
+  @override
+  void initState() {
+    count=widget.ucount!;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(

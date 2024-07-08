@@ -21,9 +21,9 @@ class AddFoodScreen extends StatefulWidget {
 
 class _AddFoodScreenState extends State<AddFoodScreen> {
   List<Food> addedFood = [];
-  final nameController=TextEditingController();
-  final priceController=TextEditingController();
-  final _formKey=GlobalKey<FormState>();
+  final nameController = TextEditingController();
+  final priceController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   final addfoodbloc = AddfoodBloc();
   @override
@@ -44,9 +44,13 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                 title: const Text("Add Food"),
                 backgroundColor: primary,
                 actions: [
-                  Text("₹${addedFood
-                      .fold<double>(0, (sum, food) => sum + food.price)
-                      .toStringAsFixed(2)}",style: Theme.of(context).textTheme.bodyLarge,),const SizedBox(width: 15,),
+                  Text(
+                    "₹${addedFood.fold<double>(0, (sum, food) => sum + food.price).toStringAsFixed(2)}",
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
                   IconButton(
                       onPressed: () {
                         if (addedFood.isNotEmpty) {
@@ -73,7 +77,6 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                       padding: const EdgeInsets.all(10),
                       scrollDirection: Axis.horizontal,
                       children: [
-                       
                         const SizedBox(
                           width: 10,
                         ),
@@ -163,28 +166,33 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                                 itemCount: state.fooditems.length,
                                 itemBuilder: (context, index) {
                                   return FoodTile(
-                                    addFunction: () {
-                                      setState(() {
-                                        addedFood.add(state.fooditems[index]);
-                                        log(addedFood.toString());
-                                      });
-                                    },
-                                    minusFunction: () {
-                                      setState(() {
-                                        addedFood
-                                            .remove(state.fooditems[index]);
-                                      });
-                                    },
-                                    name: state.fooditems[index].name,
-                                    imglink: state.fooditems[index].imageLink,
-                                    price:
-                                        state.fooditems[index].price.toString(),
-                                  );
+                                      addFunction: () {
+                                        setState(() {
+                                          addedFood.add(state.fooditems[index]);
+                                          log(addedFood.toString());
+                                        });
+                                      },
+                                      minusFunction: () {
+                                        setState(() {
+                                          addedFood
+                                              .remove(state.fooditems[index]);
+                                        });
+                                      },
+                                      name: state.fooditems[index].name,
+                                      imglink: state.fooditems[index].imageLink,
+                                      price: state.fooditems[index].price
+                                          .toString(),
+                                      ucount: addedFood
+                                          .where((food) =>
+                                              food.id ==
+                                              state.fooditems[index].id)
+                                          .length);
                                 },
                               ),
                             )
                           : const Expanded(
-                              child: const Center(child: Text("No Items Found")))
+                              child:
+                                  const Center(child: Text("No Items Found")))
                       : const Expanded(
                           child: Center(
                             child: CircularProgressIndicator(),
@@ -197,5 +205,3 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     );
   }
 }
-
-   

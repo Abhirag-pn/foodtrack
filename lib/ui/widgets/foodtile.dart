@@ -6,6 +6,7 @@ import '../../constants/colors.dart';
 class FoodTile extends StatelessWidget {
   final void Function() addFunction, minusFunction;
   final String name, imglink, price;
+  final int ucount;
 
   const FoodTile({
     super.key,
@@ -13,7 +14,7 @@ class FoodTile extends StatelessWidget {
     required this.imglink,
     required this.price,
     required this.addFunction,
-    required this.minusFunction,
+    required this.minusFunction, required this.ucount,
   });
 
   @override
@@ -72,6 +73,7 @@ class FoodTile extends StatelessWidget {
                 Incrementer(
                   addFunction: addFunction,
                   minusFunction: minusFunction,
+                  ucount: ucount,
                 )
               ],
             ),
