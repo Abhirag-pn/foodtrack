@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtrack/bloc/adminhomebloc/adminhome_bloc.dart';
 import 'package:foodtrack/constants/colors.dart';
-import 'package:foodtrack/models/foodmodel.dart';
 import 'package:foodtrack/ui/widgets/customtextfeild.dart';
 import '../widgets/customtile.dart';
 
@@ -22,10 +21,15 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   final adminhomebloc = AdminhomeBloc();
   String dvalue = "Breakfast";
 
+  // @override
+  // void initState() {
+  //   adminhomebloc.add(GetUsersEvent());
+  //   super.initState();
+  // }
   @override
-  void initState() {
+  void didChangeDependencies() {
     adminhomebloc.add(GetUsersEvent());
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override

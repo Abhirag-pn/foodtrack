@@ -62,9 +62,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
 
       on<BillExpandEvent>((event, emit) {
-      emit(HomeLoadingState());
+    
       try {
         log("BillExpand clicked");
+        emit(BillExpandedState(bill:event.bill));
       } catch (e) {
         log(e.toString());
       }

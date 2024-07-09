@@ -13,4 +13,8 @@ final class HomeLoadedState extends HomeState {
 }
 final class PayementState extends HomeState {}
 final class HistoryState extends HomeState {}
-final class BillExpandedState extends HomeState {}
+final class BillExpandedState extends HomeState {
+  final Bill bill;
+
+  BillExpandedState({required this.bill});
+}

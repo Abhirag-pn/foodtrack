@@ -18,6 +18,9 @@ class PaymentHistoryScreen extends StatelessWidget {
       body: ListView(padding: const EdgeInsets.all(10), children:  [
         
         BillTile(
+          onpress: () {
+            
+          },
             title: "Monday,15 June",
             subtitle: "₹500",
             img:
