@@ -24,7 +24,16 @@ class BillTile extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: MediaQuery.of(context).size.width/14,
-            child: Image.network(img,height: 40,width: 40,),
+            
+         child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children:[
+          
+          Text(
+          title[0]
+         )],),
           ),
           const SizedBox(
             width: 15,

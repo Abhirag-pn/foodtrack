@@ -29,9 +29,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     return BlocProvider.value(
       value: homebloc,
       child: BlocConsumer<HomeBloc, HomeState>(
+        listenWhen: (previous, current) => current is HomeActionState,
+        buildWhen: (previous, current) => current is !HomeActionState,
         listener: (context, state) {
           if (state is BillExpandedState) {
             Navigator.pushNamed(context, BillExpandScreen.routename,
@@ -55,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   backgroundColor: Colors.transparent,
                   body: state is HomeLoadingState
-                      ? Center(
+                      ? const Center(
                           child: CircularProgressIndicator(),
                         )
                       : state is HomeLoadedState
@@ -136,6 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           height: 8,
                                         ),
                                         Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             SizedBox(
                                                 child: ElevatedButton(
@@ -174,9 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         color: secondary),
                                               ),
                                             )),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
+                                           
                                             OutlinedButton(
                                                 onPressed: () {},
                                                 child: Text(
@@ -263,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             )
-                          : Center(
+                          : const Center(
                               child: Text("Whoops something went wrong"),
                             )),
             ),
