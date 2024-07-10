@@ -25,7 +25,10 @@ class _AdminloginscreenState extends State<Adminloginscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
+         listenWhen: (previous, current) => current is AuthActionState,
+        buildWhen: (previous, current) => current is !AuthActionState,
         listener: (context, state) {
+          
           if (state is UserLoginState) {
             Navigator.popUntil(context, (route) => route.isFirst);
             Navigator.pushReplacementNamed(context, LoginScreen.routename);

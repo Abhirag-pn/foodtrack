@@ -3,6 +3,8 @@ part of 'addfood_bloc.dart';
 @immutable
 sealed class AddfoodState {}
 
+class AddFoodActionState extends AddfoodState{ }
+
 final class AddfoodInitial extends AddfoodState {}
 
  final class FoodLoadedState extends AddfoodState{
@@ -18,5 +20,5 @@ final class FoodErrorState extends AddfoodState{
   FoodErrorState({required this.errmsg});
 }
 
- final class BillAddedState extends AddfoodState{}
+ final class BillAddedState extends AddFoodActionState{}
 

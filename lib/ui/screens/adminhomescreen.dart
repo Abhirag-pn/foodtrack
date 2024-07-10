@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtrack/bloc/adminhomebloc/adminhome_bloc.dart';
+import 'package:foodtrack/bloc/authbloc/auth_bloc.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/widgets/customtextfeild.dart';
 import '../widgets/customtile.dart';
@@ -37,7 +38,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     return BlocProvider.value(
       value: adminhomebloc,
       child: BlocConsumer<AdminhomeBloc, AdminhomeState>(
+        listenWhen: (previous, current) => current is AdminHomeActionState,
+        buildWhen: (previous, current) => current is !AdminHomeActionState,
         listener: (context, state) {
+          
           if (state is AdminHomeErrorState) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.errmsg)));

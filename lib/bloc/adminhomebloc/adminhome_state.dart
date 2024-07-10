@@ -2,6 +2,7 @@ part of 'adminhome_bloc.dart';
 
 @immutable
 sealed class AdminhomeState {}
+class AdminHomeActionState extends AdminhomeState {}
 
 final class AdminhomeInitial extends AdminhomeState {}
 

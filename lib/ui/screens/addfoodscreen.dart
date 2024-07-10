@@ -37,6 +37,8 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     return BlocProvider.value(
       value: addfoodbloc,
       child: BlocConsumer<AddfoodBloc, AddfoodState>(
+        listenWhen: (previous, current) => current is AddFoodActionState,
+        buildWhen: (previous, current) => current is !AddFoodActionState,
         listener: (context, state) {},
         builder: (context, state) {
           return Scaffold(
