@@ -6,7 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtrack/bloc/homebloc/home_bloc.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/models/billmodel.dart';
+import 'package:foodtrack/ui/screens/addfoodscreen.dart';
 import 'package:foodtrack/ui/screens/billexpandscreen.dart';
+import 'package:intl/intl.dart';
 
 import '../widgets/billtile.dart';
 
@@ -28,6 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    homebloc.add(GetBillDetailsEvent());
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     
     return BlocProvider.value(
@@ -39,6 +47,15 @@ class _HomeScreenState extends State<HomeScreen> {
           if (state is BillExpandedState) {
             Navigator.pushNamed(context, BillExpandScreen.routename,
                 arguments: state.bill);
+          }
+          if (state is AddFoodState) {
+            Navigator.pushNamed(context, AddFoodScreen.routename);
+          }
+          if (state is PayementState) {
+            
+          }
+          if (state is HistoryState) {
+           
           }
         },
         builder: (context, state) {
@@ -53,7 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   floatingActionButton: FloatingActionButton.extended(
                     backgroundColor: primary,
                     foregroundColor: onprimary,
-                    onPressed: () {},
+                    onPressed: () {
+                      homebloc.add(AddFoodClickedEvent());
+                    },
                     label: const Text("Add new bill"),
                   ),
                   backgroundColor: Colors.transparent,
@@ -119,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             GestureDetector(
                                                 onTap: () {},
                                                 child: const Icon(
-                                                    Icons.person_2_outlined))
+                                                    Icons.logout,color: Colors.red,))
                                           ],
                                         ),
                                         Divider(
@@ -251,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 .bills[index]));
                                                   },
                                                   title:
-                                                      state.bills[index].date,
+                                                     DateFormat('EEEE, d MMMM').format(state.bills[index].date).toString(),
                                                   subtitle:
                                                       "₹${state.bills[index].total}",
                                                   img:

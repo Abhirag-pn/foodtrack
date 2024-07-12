@@ -15,7 +15,11 @@ class AdminBillLoadedState extends AdminprofileexpandState {
   AdminBillLoadedState({required this.bills});
 }
 
-class AdminBillErrorState extends AdminprofileexpandActionState {}
+class AdminBillErrorState extends AdminprofileexpandActionState {
+  final String errmsg;
+
+  AdminBillErrorState({required this.errmsg});
+}
 
 class AdminBillExpandedState extends AdminprofileexpandActionState {
   final Bill bill;

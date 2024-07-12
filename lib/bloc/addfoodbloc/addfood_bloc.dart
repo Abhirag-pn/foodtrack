@@ -51,13 +51,13 @@ class AddfoodBloc extends Bloc<AddfoodEvent, AddfoodState> {
                       .fold<double>(0, (sum, food) => sum + food.price)
                        ,
           id: billdocRef.id,
-          date: DateFormat('EEEE, d MMMM').format(DateTime.now()).toString(),
+          date: DateTime.now(),
           items: event.items,
           ispaid: false,
         );
 
         await billdocRef.set(newbill.toMap());
-        emit(BillAddedState());
+       
       } catch (e) {
         emit(FoodErrorState(errmsg: e.toString()));
       }

@@ -32,7 +32,9 @@ log("Work AAKUnnind");
   emit(AdminBillLoadedState(bills: bills));
   }catch (e) {
     log(e.toString());
-    emit(AdminBillErrorState());
+    emit(AdminBillErrorState(
+      errmsg: e.toString()
+    ));
   }
     });
     on<AdminBillExpandEvent>((event, emit) async{

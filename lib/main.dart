@@ -16,6 +16,7 @@ import 'package:foodtrack/ui/screens/loginscreen.dart';
 import 'package:foodtrack/ui/screens/paymenthistoryscreen.dart';
 import 'package:foodtrack/ui/screens/profilescreen.dart';
 import 'package:foodtrack/ui/screens/signinscreen.dart';
+import 'package:foodtrack/ui/screens/splashscreen.dart';
 
 import 'firebase_options.dart';
 
@@ -75,7 +76,7 @@ class MyApp extends StatelessWidget {
                         MediaQuery.of(context).size.height / 40),
                     borderSide:
                         const BorderSide(width: 0, style: BorderStyle.none)))),
-        home: const AdminHomeScreen(),
+        home: const Splashscreen(),
         routes: {
           SignUpScreen.routename: (context) => const SignUpScreen(),
           LoginScreen.routename: (context) => const LoginScreen(),

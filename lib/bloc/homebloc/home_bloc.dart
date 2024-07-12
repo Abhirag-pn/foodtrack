@@ -73,11 +73,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
 
     on<AddFoodClickedEvent>((event, emit) {
-      emit(HomeLoadingState());
-      try {
-        log("BillExpand clicked");
-      } catch (e) {
-        log(e.toString());
+      {
+       emit(AddFoodState());
+      
       }
     });
 

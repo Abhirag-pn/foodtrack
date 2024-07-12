@@ -1,9 +1,11 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'foodmodel.dart';
 
 class Bill {
   final String id;
-  final String date;
+  final DateTime date;
   final double total;
   final List<Food> items;
   bool ispaid;
@@ -23,7 +25,7 @@ class Bill {
     total: data['total'],
         id: data['id'] as String,
        ispaid: data['ispaid'],
-        date: data['date'] as String,
+        date: (data['date'] as Timestamp).toDate(),
         items: (data['items'] as List)
             .map((item) => Food.fromMap(item))
             .toList(),
@@ -34,7 +36,7 @@ class Bill {
   Map<String, dynamic> toMap() => {
         'id': id,
         'total':total,
-        'date': date,
+        'date': date ,
         'items': items.map((item) => item.toMap()).toList(),
         'ispaid':ispaid
         

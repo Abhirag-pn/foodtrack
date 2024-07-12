@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
 
-class CustomTile extends StatelessWidget {
+class CustomFoodTile extends StatelessWidget {
   final String title,subtitle,img;
-  final void Function()? onPress;
-  const CustomTile({
-    super.key, required this.title, required this.subtitle, required this.img, this.onPress,
+  
+  const CustomFoodTile({
+    super.key, required this.title, required this.subtitle, required this.img,  
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(5),
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
       height: MediaQuery.of(context).size.height / 10,
       width: double.maxFinite,
       decoration: BoxDecoration(
@@ -22,9 +22,10 @@ class CustomTile extends StatelessWidget {
       ),
       child: Row(
         children: [
-          CircleAvatar(backgroundImage:NetworkImage(img) ,
+          CircleAvatar(
             radius: MediaQuery.of(context).size.width/14,
             
+         backgroundImage: NetworkImage(img),
           ),
           const SizedBox(
             width: 15,
@@ -35,16 +36,12 @@ class CustomTile extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: Theme.of(context).textTheme.labelMedium,
+                style: Theme.of(context).textTheme.labelLarge,
               ),
-               Text(subtitle,style: Theme.of(context).textTheme!.labelSmall,),
+               Text(subtitle),
             ],
           ),
-          const Spacer(),
-          TextButton(
-            onPressed: onPress,
-            child: const Text("Expand"),
-          ),
+         
         ],
       ),
     );

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtrack/bloc/addfoodbloc/addfood_bloc.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/models/foodmodel.dart';
+import 'package:foodtrack/ui/screens/homescreen.dart';
 import 'package:foodtrack/ui/widgets/customtextfeild.dart';
 import 'package:foodtrack/ui/widgets/incrementer.dart';
 
@@ -36,10 +37,9 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: addfoodbloc,
-      child: BlocConsumer<AddfoodBloc, AddfoodState>(
-        listenWhen: (previous, current) => current is AddFoodActionState,
-        buildWhen: (previous, current) => current is !AddFoodActionState,
-        listener: (context, state) {},
+      child: BlocBuilder<AddfoodBloc, AddfoodState>(
+        
+        
         builder: (context, state) {
           return Scaffold(
               appBar: AppBar(
@@ -57,7 +57,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                       onPressed: () {
                         if (addedFood.isNotEmpty) {
                           addfoodbloc.add(AddBillEvent(items: addedFood));
-                          Navigator.pop(context);
+                          Navigator.pushReplacementNamed(context, HomeScreen.routename);
                         }
                       },
                       icon: const Icon(Icons.done))

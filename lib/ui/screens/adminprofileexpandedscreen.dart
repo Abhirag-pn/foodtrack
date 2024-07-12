@@ -1,8 +1,13 @@
+
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtrack/bloc/adminprofilebloc/adminprofileexpand_bloc.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/screens/billexpandscreen.dart';
+import 'package:intl/intl.dart';
 
 import '../widgets/billtile.dart';
 
@@ -23,9 +28,11 @@ class _AdminProfileExpandedScreenState
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    userid = ModalRoute.of(context)!.settings.arguments as String?;
-    if (userid != null) {
-      profileexpandedbloc.add(AdminGetBillsEvent(userid: userid!));
+    if (userid == null) {
+      userid = ModalRoute.of(context)!.settings.arguments as String?;
+      if (userid != null) {
+        profileexpandedbloc.add(AdminGetBillsEvent(userid: userid!));
+      }
     }
   }
 
@@ -39,12 +46,17 @@ class _AdminProfileExpandedScreenState
         buildWhen: (previous, current) =>
             current is! AdminprofileexpandActionState,
         listener: (context, state) {
-  if (state is AdminBillExpandedState) {
+          if (state is AdminBillExpandedState) {
             Navigator.pushNamed(context, BillExpandScreen.routename,
                 arguments: state.bill);
+
+
           }
 
-
+          if (state is AdminBillErrorState) {
+            log(state.errmsg);
+                
+          }
         },
         builder: (context, state) {
           return Container(
@@ -247,7 +259,7 @@ class _AdminProfileExpandedScreenState
                                                           bill: state
                                                               .bills[index]));
                                                 },
-                                                title: state.bills[index].date,
+                                                title: DateFormat('EEEE, d MMMM').format(state.bills[index].date).toString(),
                                                 subtitle:
                                                     "₹${state.bills[index].total}",
                                                 img:

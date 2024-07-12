@@ -3,6 +3,7 @@ import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/models/billmodel.dart';
 import 'package:foodtrack/models/foodmodel.dart';
 import 'package:foodtrack/ui/widgets/billtile.dart';
+import 'package:foodtrack/ui/widgets/customfoodtile.dart';
 
 class BillExpandScreen extends StatelessWidget {
   static const routename = 'billexpand';
@@ -46,8 +47,8 @@ class BillExpandScreen extends StatelessWidget {
           String foodName = foodCounts.keys.elementAt(index);
           int count = foodCounts[foodName]!;
           double price = bill.items.firstWhere((item) => item.name == foodName).price;
-          return BillTile(
-            onpress: () {},
+          return CustomFoodTile(
+          
             title: '$count $foodName ',
             subtitle: 'Total: ₹${(price * count).toStringAsFixed(2)}',
             img: bill.items.firstWhere((item) => item.name == foodName).imageLink,

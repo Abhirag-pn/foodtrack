@@ -14,6 +14,7 @@ final class HomeLoadedState extends HomeState {
 }
 final class PayementState extends HomeActionState {}
 final class HistoryState extends HomeActionState {}
+final class AddFoodState extends HomeActionState{}
 final class BillExpandedState extends HomeActionState {
   final Bill bill;
 
