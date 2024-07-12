@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtrack/bloc/adminhomebloc/adminhome_bloc.dart';
 import 'package:foodtrack/bloc/authbloc/auth_bloc.dart';
 import 'package:foodtrack/constants/colors.dart';
+import 'package:foodtrack/ui/screens/adminprofileexpandedscreen.dart';
 import 'package:foodtrack/ui/widgets/customtextfeild.dart';
 import '../widgets/customtile.dart';
 
@@ -39,12 +40,25 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       value: adminhomebloc,
       child: BlocConsumer<AdminhomeBloc, AdminhomeState>(
         listenWhen: (previous, current) => current is AdminHomeActionState,
-        buildWhen: (previous, current) => current is !AdminHomeActionState,
+        buildWhen: (previous, current) => current is! AdminHomeActionState,
         listener: (context, state) {
-          
           if (state is AdminHomeErrorState) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.errmsg)));
+          }
+          if (state is FoodAddedState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Food added successfully!')));
+            adminhomebloc.add(GetUsersEvent());
+          }
+          if (state is UserExpandedState) {
+            Navigator.pushNamed(context, AdminProfileExpandedScreen.routename,
+                arguments: state.userid);
+          }
+          if (state is FoodAddedState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Food added successfully!')));
+            adminhomebloc.add(GetUsersEvent());
           }
           if (state is FoodAddedState) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -83,6 +97,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                             ),
                             itemBuilder: (context, index) {
                               return CustomTile(
+                                onPress: () {
+                                  adminhomebloc.add(UserTileExpandEvent(
+                                      userid: state.users[index].id));
+                                },
                                 title: state.users[index].name,
                                 subtitle: "pending",
                                 img:

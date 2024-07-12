@@ -39,5 +39,9 @@ class AdminhomeBloc extends Bloc<AdminhomeEvent, AdminhomeState> {
         emit(AdminHomeErrorState(errmsg: e.toString()));
       }
     });
+    on<UserTileExpandEvent>((event, emit) async {
+    emit(UserExpandedState(userid: event.userid));
+    });
+   
   }
 }

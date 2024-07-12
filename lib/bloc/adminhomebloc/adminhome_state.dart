@@ -4,7 +4,10 @@ part of 'adminhome_bloc.dart';
 sealed class AdminhomeState {}
 class AdminHomeActionState extends AdminhomeState {}
 
+
+
 final class AdminhomeInitial extends AdminhomeState {}
+
 
 class UsersLoadedState extends AdminhomeState {
   final List<UserModel> users;
@@ -18,7 +21,11 @@ class AdminHomeErrorState extends AdminhomeState {
   AdminHomeErrorState({required this.errmsg});
 }
 
-class UserExpandedState extends AdminhomeState {}
-class FoodAddedState extends AdminhomeState {
+class UserExpandedState extends AdminHomeActionState {
+  final String userid;
+
+  UserExpandedState({required this.userid});
+}
+class FoodAddedState extends AdminHomeActionState {
   
 }

@@ -4,8 +4,9 @@ import '../../constants/colors.dart';
 
 class CustomTile extends StatelessWidget {
   final String title,subtitle,img;
+  final void Function()? onPress;
   const CustomTile({
-    super.key, required this.title, required this.subtitle, required this.img,
+    super.key, required this.title, required this.subtitle, required this.img, this.onPress,
   });
 
   @override
@@ -41,7 +42,7 @@ class CustomTile extends StatelessWidget {
           ),
           const Spacer(),
           TextButton(
-            onPressed: () {},
+            onPressed: onPress,
             child: const Text("Expand"),
           ),
         ],
