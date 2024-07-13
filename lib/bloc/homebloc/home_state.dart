@@ -6,7 +6,7 @@ class HomeActionState extends HomeState{}
 
 final class HomeInitial extends HomeState {}
 final class HomeLoadingState extends HomeState {}
-final class HomeErrorState extends HomeState {}
+final class HomeErrorState extends HomeActionState {}
 final class HomeLoadedState extends HomeState {
   final List<Bill> bills;
 

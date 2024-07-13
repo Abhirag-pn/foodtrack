@@ -24,7 +24,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         .collection('users')
         .doc(userid)
         .collection('bills')
-        .where('ispaid', isEqualTo: false)
+        .where('ispaid', isEqualTo: false).orderBy('date',descending: true)
         .get();
 
     log('Fetched bills: ${snapshot.docs.length}');
@@ -36,8 +36,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }).toList();
 
     emit(HomeLoadedState(bills: bills));
-  } catch (e) {
+  } catch (e,s) {
     log(e.toString());
+    log(s.toString());
+
     emit(HomeErrorState());
   }
 });

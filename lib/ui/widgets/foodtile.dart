@@ -14,7 +14,8 @@ class FoodTile extends StatelessWidget {
     required this.imglink,
     required this.price,
     required this.addFunction,
-    required this.minusFunction, required this.ucount,
+    required this.minusFunction,
+    required this.ucount,
   });
 
   @override
@@ -51,25 +52,13 @@ class FoodTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: 160,
-                  child: Row(
-                    children: [
-                      Text(
-                        name,
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                Text(
+                  name,
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
-                      const Spacer(),
-                      Text("₹$price",
-                          style: Theme.of(context).textTheme.titleLarge),
-                    ],
-                  ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                Text("₹$price", style: Theme.of(context).textTheme.titleMedium),
                 Incrementer(
                   addFunction: addFunction,
                   minusFunction: minusFunction,

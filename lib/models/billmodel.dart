@@ -36,7 +36,7 @@ class Bill {
   Map<String, dynamic> toMap() => {
         'id': id,
         'total':total,
-        'date': date ,
+        'date': date as Timestamp ,
         'items': items.map((item) => item.toMap()).toList(),
         'ispaid':ispaid
         

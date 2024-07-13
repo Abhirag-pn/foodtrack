@@ -171,7 +171,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                                       addFunction: () {
                                         setState(() {
                                           addedFood.add(state.fooditems[index]);
-                                          log(addedFood.toString());
+                                          
                                         });
                                       },
                                       minusFunction: () {
