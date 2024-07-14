@@ -20,3 +20,5 @@ final class FoodErrorState extends AddfoodState{
   FoodErrorState({required this.errmsg});
 }
 
+final class FoodAddedState extends AddfoodState{}
+

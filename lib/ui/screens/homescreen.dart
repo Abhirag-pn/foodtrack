@@ -8,6 +8,7 @@ import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/models/billmodel.dart';
 import 'package:foodtrack/ui/screens/addfoodscreen.dart';
 import 'package:foodtrack/ui/screens/billexpandscreen.dart';
+import 'package:foodtrack/ui/screens/paymenthistoryscreen.dart';
 import 'package:intl/intl.dart';
 
 import '../widgets/billtile.dart';
@@ -52,10 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.pushNamed(context, AddFoodScreen.routename);
           }
           if (state is PayementState) {
-            
+             Navigator.of(context).pushNamed(PaymentHistoryScreen.routename);
           }
           if (state is HistoryState) {
-           
+           Navigator.of(context).pushNamed(PaymentHistoryScreen.routename);
           }
         },
         builder: (context, state) {
@@ -163,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             SizedBox(
                                                 child: ElevatedButton(
                                               onPressed: () {
-                                                log(state.bills.toString());
+                                              homebloc.add(PayClickedEvent());
                                               },
                                               style: ElevatedButton.styleFrom(
                                                   shape: RoundedRectangleBorder(
@@ -199,7 +200,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                             )),
                                            
                                             OutlinedButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  homebloc.add(HistoryClickedEvent());
+                                                },
                                                 child: Text(
                                                   "History",
                                                   style: Theme.of(context)

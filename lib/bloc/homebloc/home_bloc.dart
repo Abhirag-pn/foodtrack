@@ -27,8 +27,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         .where('ispaid', isEqualTo: false).orderBy('date',descending: true)
         .get();
 
-    log('Fetched bills: ${snapshot.docs.length}');
-
     var bills = snapshot.docs.map((doc) {
       final data = doc.data();
       log('Bill data: $data');
@@ -45,18 +43,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 });
 
     on<PayClickedEvent>((event, emit) {
-      emit(HomeLoadingState());
+   
       try {
         log("Pay clicked");
+        emit(PayementState());
       } catch (e) {
         log(e.toString());
       }
     });
 
     on<HistoryClickedEvent>((event, emit) {
-      emit(HomeLoadingState());
+     
       try {
         log("History clicked");
+        emit(HistoryState());
       } catch (e) {
         log(e.toString());
       }

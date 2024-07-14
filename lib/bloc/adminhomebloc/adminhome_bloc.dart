@@ -28,6 +28,7 @@ class AdminhomeBloc extends Bloc<AdminhomeEvent, AdminhomeState> {
         final docRef = foodCollection.doc();
         final newfood = Food(
           id: docRef.id,
+          qty: 0,
           name: event.name,
           price: event.price,
           type: event.type,

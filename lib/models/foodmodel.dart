@@ -4,8 +4,10 @@ class Food {
   final String type; // Optional
   final double price;
   final String imageLink;
+   int qty;
 
-  Food({
+  Food( {
+     this.qty=0,
     required this.imageLink,
     required this.id,
     required this.name,
@@ -15,6 +17,7 @@ class Food {
 
   factory Food.fromMap(Map<String, dynamic> data) => Food(
         id: data['id'] as String,
+        qty: data['qty'] ,
         name: data['name'] as String,
         type: data['type'] as String,
         imageLink: data['imageLink'] as String,
@@ -23,6 +26,7 @@ class Food {
 
   Map<String, dynamic> toMap() => {
         'id': id,
+        'qty':qty,
         'name': name,
         'type': type,
         'price': price,

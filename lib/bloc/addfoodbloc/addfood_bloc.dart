@@ -45,19 +45,19 @@ class AddfoodBloc extends Bloc<AddfoodEvent, AddfoodState> {
         String userId = FirebaseAuth.instance.currentUser!.uid;
         DocumentReference userDocRef =
             FirebaseFirestore.instance.collection('users').doc(userId);
-        final billdocRef = userDocRef.collection('bills').doc();
+       
         final newbill = Bill(
           total:event.items
-                      .fold<double>(0, (sum, food) => sum + food.price)
+                      .fold<double>(0, (suum, food) => suum + food.price*food.qty)
                        ,
-          id: billdocRef.id,
+      
           date: DateTime.now(),
           items: event.items,
           ispaid: false,
         );
 
-        await billdocRef.set(newbill.toMap());
-       
+        userDocRef.collection('bills').add(newbill.toMap());
+      emit(FoodAddedState()); 
       } catch (e) {
         emit(FoodErrorState(errmsg: e.toString()));
       }
