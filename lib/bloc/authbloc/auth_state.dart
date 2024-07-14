@@ -16,6 +16,7 @@ final class AuthErrorState extends AuthState {
 }
 
 final class AuthSuccessState extends AuthActionState {}
+
 final class AdminAuthSuccessState extends AuthActionState {}
 final class UserLoginState extends AuthActionState {}
 final class UserSignUpState extends AuthActionState {}

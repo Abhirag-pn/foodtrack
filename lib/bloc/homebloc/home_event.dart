@@ -11,5 +11,6 @@ class BillExpandEvent extends HomeEvent {
 
   BillExpandEvent({required this.bill});
 }
+class LogoutRequestEvent extends HomeEvent{}
 class ProfileClickEvent extends HomeEvent {}
 class AddFoodClickedEvent extends HomeEvent {}

@@ -15,7 +15,7 @@ class UsersLoadedState extends AdminhomeState {
   UsersLoadedState({required this.users});
 }
 class AdminHomeLoadingState extends AdminhomeState {}
-class AdminHomeErrorState extends AdminhomeState {
+class AdminHomeErrorState extends AdminHomeActionState {
   final String errmsg;
 
   AdminHomeErrorState({required this.errmsg});

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,25 +19,38 @@ class Splashscreen extends StatefulWidget {
 class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
+    log("Entering init");
     Future.delayed(
       const Duration(seconds: 1),
-      ()async {
-        final user=FirebaseAuth.instance.currentUser;
-        if (user!= null) {
-          final  userdoc= await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-          final userob=UserModel.fromMap(userdoc.data()!);
-          if(userob.role=="user")
-          {
-            Navigator.popUntil(context, (route) => route.isFirst);
-          Navigator.pushReplacementNamed(context, HomeScreen.routename);
-          }else{
-            Navigator.popUntil(context, (route) => route.isFirst);
-          Navigator.pushReplacementNamed(context, AdminHomeScreen.routename);
+      () async {
+        try {
+          log("Entering");
+          final user = FirebaseAuth.instance.currentUser;
+          if (user != null) {
+            log("user!null");
+            final userdoc = await FirebaseFirestore.instance
+                .collection('users')
+                .doc(user.uid)
+                .get();
+           
+              log("userdoc found");
+              final userob = UserModel.fromMap(userdoc.data()!);
+              if (userob.role == "user") {
+                log("user found");
+                Navigator.pushReplacementNamed(context, HomeScreen.routename);
+              } else {
+                log("admin found");
+                Navigator.pushReplacementNamed(
+                    context, AdminHomeScreen.routename);
+              }
+            }
+           else {
+            log("no user");
+            Navigator.pushReplacementNamed(context, LoginScreen.routename);
           }
-        }
-        else{
-          Navigator.popUntil(context, (route) => route.isFirst);
-          Navigator.pushReplacementNamed(context, LoginScreen.routename);
+        } catch (e, s) {
+          log(e.toString());
+          log(s.toString());
         }
       },
     );

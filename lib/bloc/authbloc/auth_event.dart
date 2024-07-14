@@ -17,6 +17,7 @@ class CreateAccountEvent extends AuthEvent {
 }
 
 
+
 class ToggleSignUp extends AuthEvent{}
 
 class ToggleLogin extends AuthEvent{}

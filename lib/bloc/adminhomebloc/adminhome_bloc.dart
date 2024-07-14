@@ -12,12 +12,13 @@ class AdminhomeBloc extends Bloc<AdminhomeEvent, AdminhomeState> {
     on<GetUsersEvent>((event, emit) async {
       emit(AdminHomeLoadingState());
       try {
-        var snapshot = await FirebaseFirestore.instance.collection('users').get();
+        var snapshot = await FirebaseFirestore.instance.collection('users').where('role',isEqualTo: "user").get();
         var users = snapshot.docs.map((doc) {
           return UserModel.fromMap(doc.data());
         }).toList();
         emit(UsersLoadedState(users: users));
       } catch (e) {
+        
         emit(AdminHomeErrorState(errmsg: e.toString()));
       }
     });

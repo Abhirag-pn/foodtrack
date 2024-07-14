@@ -42,6 +42,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 });
 
+on<LogoutRequestEvent>(
+      (event, emit) async{
+        emit(HomeLoadingState());
+       await FirebaseAuth.instance.signOut();
+        emit(((LogoutState())));
+      },
+    );
+
     on<PayClickedEvent>((event, emit) {
    
       try {

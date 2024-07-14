@@ -65,7 +65,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             UserCredential credential = await FirebaseAuth.instance
                 .createUserWithEmailAndPassword(
                     email: event.email, password: event.password);
-
+    
+            
             UserModel userinfo = UserModel(
                 id: credential.user!.uid,
                 email: credential.user!.email!,
@@ -93,6 +94,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       },
     );
 
+
+
+    
     on<ToggleSignUp>(
       (event, emit) {
         emit(UserSignUpState());

@@ -21,6 +21,16 @@ class _AdminloginscreenState extends State<Adminloginscreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController adminEmailController = TextEditingController();
   final TextEditingController adminPasswordController = TextEditingController();
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      BlocProvider.of<AuthBloc>(context).add(
+        LoginRequestEvent(
+          email: adminEmailController.text,
+          password: adminPasswordController.text,
+        ),
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +42,7 @@ class _AdminloginscreenState extends State<Adminloginscreen> {
           if (state is UserLoginState) {
             Navigator.popUntil(context, (route) => route.isFirst);
             Navigator.pushReplacementNamed(context, LoginScreen.routename);
-          } else if (state is AuthSuccessState) {
+          } else if (state is AdminAuthSuccessState) {
             Navigator.popUntil(context, (route) => route.isFirst);
             Navigator.pushReplacementNamed(context, AdminHomeScreen.routename);
           } else if (state is AuthErrorState) {
@@ -86,7 +96,7 @@ class _AdminloginscreenState extends State<Adminloginscreen> {
                             height: 20,
                           ),
                           ElevatedButton(
-                              onPressed: () {}, child: const Text("Login")),
+                              onPressed: _submitForm, child: const Text("Login")),
                           const SizedBox(
                             height: 20,
                           ),

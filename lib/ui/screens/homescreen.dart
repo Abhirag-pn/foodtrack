@@ -3,11 +3,13 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodtrack/bloc/authbloc/auth_bloc.dart';
 import 'package:foodtrack/bloc/homebloc/home_bloc.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/models/billmodel.dart';
 import 'package:foodtrack/ui/screens/addfoodscreen.dart';
 import 'package:foodtrack/ui/screens/billexpandscreen.dart';
+import 'package:foodtrack/ui/screens/loginscreen.dart';
 import 'package:foodtrack/ui/screens/paymenthistoryscreen.dart';
 import 'package:intl/intl.dart';
 
@@ -57,6 +59,10 @@ class _HomeScreenState extends State<HomeScreen> {
           }
           if (state is HistoryState) {
            Navigator.of(context).pushNamed(PaymentHistoryScreen.routename);
+          }
+          if (state is LogoutState) {
+          Navigator.popUntil(context, (route) => route.isFirst);
+          Navigator.pushReplacementNamed(context, LoginScreen.routename);
           }
         },
         builder: (context, state) {
@@ -137,7 +143,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             const Spacer(),
                                             GestureDetector(
-                                                onTap: () {},
+                                                onTap: () {
+                                                  homebloc.add(LogoutRequestEvent());
+                                                },
                                                 child: const Icon(
                                                     Icons.logout,color: Colors.red,))
                                           ],

@@ -23,11 +23,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   final adminhomebloc = AdminhomeBloc();
   String dvalue = "Breakfast";
 
-  // @override
-  // void initState() {
-  //   adminhomebloc.add(GetUsersEvent());
-  //   super.initState();
-  // }
+@override
+  void initState() {
+    adminhomebloc.add(GetUsersEvent());
+    super.initState();
+  }
   @override
   void didChangeDependencies() {
     adminhomebloc.add(GetUsersEvent());
