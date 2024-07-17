@@ -1,5 +1,3 @@
-
-
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -9,6 +7,7 @@ import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/screens/billexpandscreen.dart';
 import 'package:intl/intl.dart';
 
+import '../widgets/alertrow.dart';
 import '../widgets/billtile.dart';
 
 class AdminProfileExpandedScreen extends StatefulWidget {
@@ -49,13 +48,10 @@ class _AdminProfileExpandedScreenState
           if (state is AdminBillExpandedState) {
             Navigator.pushNamed(context, BillExpandScreen.routename,
                 arguments: state.bill);
-
-
           }
 
           if (state is AdminBillErrorState) {
             log(state.errmsg);
-                
           }
         },
         builder: (context, state) {
@@ -152,7 +148,24 @@ class _AdminProfileExpandedScreenState
                                         children: [
                                           SizedBox(
                                             child: ElevatedButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return const AlertDialog(
+                                                      title: Text(
+                                                          "Payment Requests"),
+                                                      content: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                           AlertRow()
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              },
                                               style: ElevatedButton.styleFrom(
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
@@ -259,7 +272,11 @@ class _AdminProfileExpandedScreenState
                                                           bill: state
                                                               .bills[index]));
                                                 },
-                                                title: DateFormat('EEEE, d MMMM').format(state.bills[index].date).toString(),
+                                                title: DateFormat(
+                                                        'EEEE, d MMMM')
+                                                    .format(
+                                                        state.bills[index].date)
+                                                    .toString(),
                                                 subtitle:
                                                     "₹${state.bills[index].total}",
                                                 img:
@@ -273,7 +290,7 @@ class _AdminProfileExpandedScreenState
                               ),
                             ],
                           )
-                        : Center(
+                        : const Center(
                             child: Text("Whoops something went wrong"),
                           ),
               ),
@@ -284,3 +301,4 @@ class _AdminProfileExpandedScreenState
     );
   }
 }
+
