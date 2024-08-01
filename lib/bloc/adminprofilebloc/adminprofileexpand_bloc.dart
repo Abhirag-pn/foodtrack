@@ -22,13 +22,14 @@ class AdminprofileexpandBloc
             .collection('users')
             .doc(event.userid)
             .get();
-        log(userdoc.toString());
+
         final userob = UserModel.fromMap(userdoc.data()!);
+        log(userob.name);
         final snapshot = await FirebaseFirestore.instance
             .collection('users')
             .doc(event.userid)
             .collection('bills')
-            .where('ispaid', isEqualTo: false)
+            .where('ispaid', isEqualTo: 'false')
             .get();
 
         log('Fetched bills: ${snapshot.docs.length}');
@@ -150,8 +151,9 @@ class AdminprofileexpandBloc
               .collection('bills')
               .doc(id);
           batch.update(billRef, {'ispaid': 'false'});
-          await batch.commit();
+          
         }
+        await batch.commit();
         await FirebaseFirestore.instance
             .collection('users')
             .doc(userId)
