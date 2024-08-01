@@ -26,12 +26,12 @@ class MarkAsPaidClickedEvent extends AdminprofileexpandEvent {
   MarkAsPaidClickedEvent({required this.requests});
 }
 class MarkAsPaidConfirmedEvent extends AdminprofileexpandEvent {
-final String paymentreqid;
+final String paymentreqid,userId;
 
-  MarkAsPaidConfirmedEvent({required this.paymentreqid});
+  MarkAsPaidConfirmedEvent({required this.paymentreqid,required this.userId, });
 }
 class MarkAsPaidRejectedEvent extends AdminprofileexpandEvent {
-final String paymentreqid;
+final String paymentreqid,userId;
 
-  MarkAsPaidRejectedEvent({required this.paymentreqid});
+  MarkAsPaidRejectedEvent({required this.paymentreqid,required this.userId,});
 }

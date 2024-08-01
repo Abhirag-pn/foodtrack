@@ -45,6 +45,8 @@ class AdminprofileexpandBloc
             .collection('users')
             .doc(event.userid)
             .collection('payments')
+            .where('isCompleted', isEqualTo: false)
+            .where('isRejected', isEqualTo: false)
             .get();
         var requests = reqsnapshot.docs.map((doc) {
           final data = doc.data();
@@ -111,20 +113,21 @@ class AdminprofileexpandBloc
     });
     on<MarkAsPaidRejectedEvent>((event, emit) async {
       try {
-       
         String userId = FirebaseAuth.instance.currentUser!.uid;
-        final DocumentSnapshot pd = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(userId)
-            .collection('payments')
-            .doc(event.paymentreqid)
-            .get();
-        if(!pd.exists)
-        {
+        Logger().e(userId);
+        final  pd =
+            await FirebaseFirestore.instance
+                .collection('users')
+                .doc(userId)
+                .collection('payments')
+                .doc(event.paymentreqid)
+                .get();
+        if (pd.exists) {
           Logger().e("ERROR");
         }
-         final Payment payment=Payment.fromMap(pd.data()as Map<String,dynamic>);   
-        List<Bill> billsList = payment.bills;
+        if(pd.data()!=null){
+          final Payment payment = Payment.fromMap(pd.data()!);
+          List<Bill> billsList = payment.bills;
         WriteBatch batch = FirebaseFirestore.instance.batch();
         for (Bill b in billsList) {
           String id = b.id;
@@ -138,12 +141,18 @@ class AdminprofileexpandBloc
           await batch.commit();
         }
         await FirebaseFirestore.instance
-              .collection('users')
-              .doc(userId)
-              .collection('payments')
-              .doc(userId)
-              .set({'isRejected':true});
+            .collection('users')
+            .doc(userId)
+            .collection('payments')
+            .doc(event.paymentreqid)
+            .set({'isRejected': true});
         emit(MarkAsPaidUpdatedState(isRejected: true));
+        }else{
+          
+          emit(AdminBillErrorState(errmsg: "DNULL"));
+        }
+        
+        
       } catch (e) {
         emit(AdminBillErrorState(errmsg: e.toString()));
       }
