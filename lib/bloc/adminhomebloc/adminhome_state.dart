@@ -29,3 +29,4 @@ class UserExpandedState extends AdminHomeActionState {
 class FoodAddedState extends AdminHomeActionState {
   
 }
+final class LogoutState extends AdminHomeActionState{}

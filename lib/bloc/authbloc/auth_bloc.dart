@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:foodtrack/models/usermodel.dart';
+import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,29 +15,31 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginRequestEvent>((event, emit) async {
       emit(AuthLoadingState());
       try {
+         log("try");
         UserCredential credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(
                 email: event.email, password: event.password);
-
+ log("checing cred Block");
         if (credential.user != null) {
-          final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-          final docSnapshot = await _firestore
+           log("credential!=null");
+          final FirebaseFirestore firestore = FirebaseFirestore.instance;
+          final docSnapshot = await firestore
               .collection('users')
               .doc(credential.user!.uid)
               .get();
           if (docSnapshot.data()?['role'] == 'admin') {
+             log("emit admin Block");
             emit(AdminAuthSuccessState());
           } else {
+            log("emit user Block");
             emit(AuthSuccessState());
           }
         }
-      } on FirebaseException catch (err) {
+      } on FirebaseException catch (e) {
+        log("Catch Block");
         String? message;
-        if (err.code.isNotEmpty) {
-          message = err.code;
-        } else {
-          message = "An error occured,check your credentials";
-        }
+       message=e.code;
+        log(e.toString());
         emit(
           AuthErrorState(errormessage: message),
         );
@@ -45,6 +50,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (event, emit) async {
         try {
           Future<bool> validateUsername(String? username) async {
+            
             final userCollection =
                 FirebaseFirestore.instance.collection('users');
             final querySnapshot =
@@ -76,20 +82,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                 .collection("users")
                 .doc(credential.user!.uid)
                 .set(userinfo.toMap());
+
                 emit(AuthSuccessState());
           }
         } on FirebaseAuthException catch (err) {
+          log("Catch Block");
           String? message;
           if (err.code.isNotEmpty) {
             message = err.message;
           } else {
             message = "An error occured,check your credentials";
           }
-          emit(
-            AuthErrorState(errormessage: message!),
-          );
 
           message = err.code;
+          emit(
+            AuthErrorState(errormessage: message),
+          );
+
+          
         }
       },
     );

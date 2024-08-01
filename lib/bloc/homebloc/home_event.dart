@@ -4,7 +4,11 @@ part of 'home_bloc.dart';
 sealed class HomeEvent {}
 
 class GetBillDetailsEvent extends HomeEvent {}
-class PayClickedEvent extends HomeEvent {}
+class PayClickedEvent extends HomeEvent {
+  final double amount;
+
+  PayClickedEvent({required this.amount});
+}
 class HistoryClickedEvent extends HomeEvent {}
 class BillExpandEvent extends HomeEvent {
   final Bill bill;
@@ -14,3 +18,13 @@ class BillExpandEvent extends HomeEvent {
 class LogoutRequestEvent extends HomeEvent{}
 class ProfileClickEvent extends HomeEvent {}
 class AddFoodClickedEvent extends HomeEvent {}
+class CashPaymentEvent extends HomeEvent {
+  final double amount;
+
+  CashPaymentEvent({required this.amount});
+}
+class GpayPaymentEvent extends HomeEvent {
+  final double amount;
+
+  GpayPaymentEvent({required this.amount});
+}

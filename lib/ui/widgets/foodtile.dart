@@ -5,6 +5,7 @@ import '../../constants/colors.dart';
 
 class FoodTile extends StatelessWidget {
   final String name, imglink, price;
+  final int count;
   final Function(int value) onChange;
 
   const FoodTile({
@@ -12,7 +13,7 @@ class FoodTile extends StatelessWidget {
     required this.name,
     required this.imglink,
     required this.price,
-    required this.onChange,
+    required this.onChange, required this.count,
   });
 
   @override
@@ -57,6 +58,7 @@ class FoodTile extends StatelessWidget {
                 ),
                 Text("₹$price", style: Theme.of(context).textTheme.titleMedium),
                 Incrementer(
+                  count: count,
                   onChange: onChange,
                 )
               ],

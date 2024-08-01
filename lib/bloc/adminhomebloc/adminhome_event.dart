@@ -9,7 +9,7 @@ class UserTileExpandEvent extends AdminhomeEvent{
 
   UserTileExpandEvent({required this.userid});
 }
-
+class LogoutRequestEvent extends AdminhomeEvent{}
 class AddFoodRequestEvent extends AdminhomeEvent{
   final String name,type,imagelink;
   final double price;

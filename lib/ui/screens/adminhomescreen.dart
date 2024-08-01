@@ -6,6 +6,7 @@ import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/screens/adminprofileexpandedscreen.dart';
 import 'package:foodtrack/ui/widgets/customtextfeild.dart';
 import '../widgets/customtile.dart';
+import 'loginscreen.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   static const routename = 'adminhome';
@@ -65,6 +66,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 const SnackBar(content: Text('Food added successfully!')));
             adminhomebloc.add(GetUsersEvent());
           }
+           if (state is LogoutState) {
+          Navigator.popUntil(context, (route) => route.isFirst);
+          Navigator.pushReplacementNamed(context, LoginScreen.routename);
+          }
+        
         },
         builder: (context, state) {
           return Scaffold(
@@ -77,6 +83,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             appBar: AppBar(
               title: const Text("Admin Panel"),
               backgroundColor: primary,
+              actions: [IconButton(onPressed: (){
+                adminhomebloc.add(LogoutRequestEvent());
+              }, icon: const Icon(Icons.logout))],
             ),
             body: state is AdminHomeLoadingState
                 ? const Center(

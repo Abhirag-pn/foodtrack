@@ -50,10 +50,12 @@ class AddfoodBloc extends Bloc<AddfoodEvent, AddfoodState> {
           total:event.items
                       .fold<double>(0, (suum, food) => suum + food.price*food.qty)
                        ,
-      
+
           date: DateTime.now(),
           items: event.items,
-          ispaid: false,
+          ispaid: 'false',
+          
+
         );
 
         userDocRef.collection('bills').add(newbill.toMap());

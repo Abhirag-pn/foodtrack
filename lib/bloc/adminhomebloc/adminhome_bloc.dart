@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import '../../models/foodmodel.dart';
 import '../../models/usermodel.dart';
@@ -44,6 +45,16 @@ class AdminhomeBloc extends Bloc<AdminhomeEvent, AdminhomeState> {
     on<UserTileExpandEvent>((event, emit) async {
     emit(UserExpandedState(userid: event.userid));
     });
+
+    
+on<LogoutRequestEvent>(
+      (event, emit) async{
+        emit(AdminHomeLoadingState());
+       await FirebaseAuth.instance.signOut();
+        emit(((LogoutState())));
+      },
+    );
    
   }
+
 }

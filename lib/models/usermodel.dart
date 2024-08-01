@@ -16,6 +16,7 @@ class UserModel {
         name: data['name'] as String,
         email: data['email'] as String,
         role: data['role'] as String,
+
       );
 
   Map<String, dynamic> toMap() => {
@@ -23,5 +24,6 @@ class UserModel {
         'name': name,
         'email': email,
         'role': role,
+        
       };
 }

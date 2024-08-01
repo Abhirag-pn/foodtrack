@@ -7,6 +7,7 @@ import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/screens/billexpandscreen.dart';
 import 'package:intl/intl.dart';
 
+import '../../models/paymentmodel.dart';
 import '../widgets/alertrow.dart';
 import '../widgets/billtile.dart';
 
@@ -49,6 +50,14 @@ class _AdminProfileExpandedScreenState
             Navigator.pushNamed(context, BillExpandScreen.routename,
                 arguments: state.bill);
           }
+          if (state is MarkAsPaidClickedState) {
+        
+          }
+          if (state is MarkAsPaidUpdatedState
+          ) {
+            
+          }
+        
 
           if (state is AdminBillErrorState) {
             log(state.errmsg);
@@ -110,7 +119,7 @@ class _AdminProfileExpandedScreenState
                                             width: 15,
                                           ),
                                           Text(
-                                            "Abhirag",
+                                            state.username,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleMedium!
@@ -120,7 +129,9 @@ class _AdminProfileExpandedScreenState
                                           ),
                                           const Spacer(),
                                           GestureDetector(
-                                            onTap: () {},
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
                                             child: const Icon(Icons.close),
                                           ),
                                         ],
@@ -149,22 +160,7 @@ class _AdminProfileExpandedScreenState
                                           SizedBox(
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return const AlertDialog(
-                                                      title: Text(
-                                                          "Payment Requests"),
-                                                      content: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.min,
-                                                        children: [
-                                                           AlertRow()
-                                                        ],
-                                                      ),
-                                                    );
-                                                  },
-                                                );
+                                                profileexpandedbloc.add(MarkAsPaidClickedEvent());
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 shape: RoundedRectangleBorder(
@@ -299,6 +295,38 @@ class _AdminProfileExpandedScreenState
         },
       ),
     );
+  }
+
+  Future<dynamic> requestsDialog(BuildContext context,List<Payment> requests) {
+    return showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return  AlertDialog(
+
+                                                    title: const Column(
+                                                      children: [
+                                                        Text(
+                                                            "Payment Requests"),
+                                                          
+                                                      ],
+                                                    ),
+                                                    content: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children:requests.isEmpty? [
+                                                        const Text("No Payment Requests")
+                                                      ]:List.generate(requests.length, (index) {
+                                                        return AlertRow(
+                                                          amount: requests[index].totalamount.toString(),
+                                                          date: requests[index].paymentdate!,
+                                                          type: requests[index].paymentMethod!,
+
+                                                        );
+                                                      },),
+                                                    ),
+                                                  );
+                                                },
+                                              );
   }
 }
 

@@ -18,3 +18,14 @@ class AdminBillExpandEvent extends AdminprofileexpandEvent {
 
   AdminBillExpandEvent({required this.bill});
 }
+
+
+class MarkAsPaidClickedEvent extends AdminprofileexpandEvent {
+  
+}
+class MarkAsPaidConfirmedEvent extends AdminprofileexpandEvent {
+
+}
+class MarkAsPaidRejectedEvent extends AdminprofileexpandEvent {
+
+}

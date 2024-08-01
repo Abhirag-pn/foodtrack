@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class Incrementer extends StatefulWidget {
   final void Function(int value) onChange;
+  final int count;
   const Incrementer({
     super.key,
-    required this.onChange,
+    required this.onChange, required this.count,
   });
 
   @override
@@ -12,7 +13,7 @@ class Incrementer extends StatefulWidget {
 }
 
 class _IncrementerState extends State<Incrementer> {
-  int count = 0;
+  late int count = widget.count;
 
   @override
   Widget build(BuildContext context) {

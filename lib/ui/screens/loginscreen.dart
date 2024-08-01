@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: Colors.red,
-                content: Text(state.errormessage),
+                content: Text("Error"),
               ),
             );
           }
@@ -73,13 +73,12 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Form(
                 key: _formKey,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: state.runtimeType == AuthLoadingState
                       ? [
-                          Center(
-                            child: CircularProgressIndicator(
-                              backgroundColor: primary,
-                            ),
+                          CircularProgressIndicator(
+                            backgroundColor: primary,
                           )
                         ]
                       : [

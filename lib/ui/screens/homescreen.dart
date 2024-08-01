@@ -11,6 +11,7 @@ import 'package:foodtrack/ui/screens/addfoodscreen.dart';
 import 'package:foodtrack/ui/screens/billexpandscreen.dart';
 import 'package:foodtrack/ui/screens/loginscreen.dart';
 import 'package:foodtrack/ui/screens/paymenthistoryscreen.dart';
+import 'package:foodtrack/ui/widgets/custombottomsheet.dart';
 import 'package:intl/intl.dart';
 
 import '../widgets/billtile.dart';
@@ -51,11 +52,25 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.pushNamed(context, BillExpandScreen.routename,
                 arguments: state.bill);
           }
+          if (state is PaymentRequestSentState) {
+           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Payment Request Have Been Sent!")));
+          }
+          if (state is HomeErrorState) {
+           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.errmsg)));
+          }
           if (state is AddFoodState) {
             Navigator.pushNamed(context, AddFoodScreen.routename);
           }
           if (state is PayementState) {
-             Navigator.of(context).pushNamed(PaymentHistoryScreen.routename);
+            showModalBottomSheet(context: context, builder:  (context) {
+              return CustomBottomSheet(onTapCash: () {
+                homebloc.add(CashPaymentEvent(amount:state.amount ));
+                Navigator.pop(context);
+              },onTapGpay: () {
+                homebloc.add(GpayPaymentEvent(amount: state.amount));
+                 Navigator.pop(context);
+              },);
+            },);
           }
           if (state is HistoryState) {
            Navigator.of(context).pushNamed(PaymentHistoryScreen.routename);
@@ -129,9 +144,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                const Text("Good Morning"),
+                                                const Text("Welcome"),
                                                 Text(
-                                                  "Abhirag",
+                                                  state.username,
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .titleSmall!
@@ -172,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             SizedBox(
                                                 child: ElevatedButton(
                                               onPressed: () {
-                                              homebloc.add(PayClickedEvent());
+                                              homebloc.add(PayClickedEvent(amount:state.bills.fold<double>(0, (sum, bill) => sum + bill.total).toDouble() ));
                                               },
                                               style: ElevatedButton.styleFrom(
                                                   shape: RoundedRectangleBorder(
@@ -305,3 +320,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+

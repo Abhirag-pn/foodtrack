@@ -177,6 +177,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                                 itemCount: state.fooditems.length,
                                 itemBuilder: (context, index) {
                                   return FoodTile(
+                                    count:getQuantity(state.fooditems[index].id, addedFood),
                                     name: state.fooditems[index].name,
                                     imglink: state.fooditems[index].imageLink,
                                     price:
@@ -223,5 +224,14 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
         },
       ),
     );
+  }
+}
+
+int getQuantity(String id,List<Food>addedFood)
+{
+  try{
+return addedFood.firstWhere((element) => element.id==id).qty;
+  }catch(e){
+    return 0;
   }
 }
