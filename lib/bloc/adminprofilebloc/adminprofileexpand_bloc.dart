@@ -80,14 +80,16 @@ class AdminprofileexpandBloc
     });
     on<MarkAsPaidConfirmedEvent>((event, emit) async {
       try {
-        String userId = FirebaseAuth.instance.currentUser!.uid;
+        String userId = event.userId;
         final DocumentSnapshot pd = await FirebaseFirestore.instance
             .collection('users')
             .doc(userId)
             .collection('payments')
             .doc(event.paymentreqid)
             .get();
+             Logger().e(pd);
         List<Bill> billsList = pd['bills'];
+        Logger().e(billsList);
         WriteBatch batch = FirebaseFirestore.instance.batch();
         for (Bill b in billsList) {
           String id = b.id;
@@ -107,13 +109,16 @@ class AdminprofileexpandBloc
               .set({'isCompleted': true});
         }
         emit(MarkAsPaidUpdatedState(isRejected: false));
-      } catch (e) {
+      } catch (e,s) {
+        Logger().e(e,)
+        ;
+        Logger().e(s);
         emit(AdminBillErrorState(errmsg: e.toString()));
       }
     });
     on<MarkAsPaidRejectedEvent>((event, emit) async {
       try {
-        String userId = FirebaseAuth.instance.currentUser!.uid;
+        String userId = event.userId;
         Logger().e(userId);
         final  pd =
             await FirebaseFirestore.instance
