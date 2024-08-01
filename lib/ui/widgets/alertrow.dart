@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AlertRow extends StatelessWidget {
   final String amount,type;
   final DateTime date;
+  final void Function()? approve;
+  final void Function()? reject;
   const AlertRow({
-    super.key, required this.amount, required this.type, required this.date,
+    super.key, required this.amount, required this.type, required this.date,required this.approve,required this.reject,
   });
 
   @override
@@ -20,15 +23,14 @@ class AlertRow extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Monday 12 June",
+                  Text( DateFormat('EEEE dd MMMM').format(date),
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   SizedBox(height: 5,),
                   Row(
                     children: [
                       Text(
-                        "₹200",
+                      "₹$amount" ,
                         style: Theme.of(context)
                             .textTheme
                             .labelLarge!
@@ -37,22 +39,28 @@ class AlertRow extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                     Image.asset('assets/images/gpayicon.png',height: 20,width: 20,)
+                     Image.asset(type=='gpay'?'assets/images/gpayicon.png':'assets/images/cashicon.png',height: 20,width: 20,)
                     ],
                   ),
                 ],
               ),
               const Spacer(),
-              const Icon(
-                Icons.close,
-                color: Colors.red,
+              GestureDetector(
+                onTap: reject,
+                child: const Icon(
+                  Icons.close,
+                  color: Colors.red,
+                ),
               ),
               SizedBox(
                 width: 20,
               ),
-              Icon(
-                Icons.done,
-                color: Colors.green,
+              GestureDetector(
+                onTap:approve ,
+                child: Icon(
+                  Icons.done,
+                  color: Colors.green,
+                ),
               ),
             ],
           ),

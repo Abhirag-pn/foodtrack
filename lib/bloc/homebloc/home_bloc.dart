@@ -90,47 +90,51 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(AddFoodState());
       }
     });
-    on<CashPaymentEvent>((event, emit) async {
-      {
-        try {
-          String userId = FirebaseAuth.instance.currentUser!.uid;
-          final QuerySnapshot qs = await FirebaseFirestore.instance
-              .collection('users')
-              .doc(userId)
-              .collection('bills')
-              .where('ispaid', isEqualTo: 'false')
-              .get();
+on<CashPaymentEvent>((event, emit) async {
+  try {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    final QuerySnapshot qs = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('bills')
+        .where('ispaid', isEqualTo: 'false')
+        .get();
 
-          List<QueryDocumentSnapshot> docs = qs.docs;
-          WriteBatch batch = FirebaseFirestore.instance.batch();
-          for (var doc in docs) {
-            DocumentReference docRef = doc.reference;
+    List<QueryDocumentSnapshot> docs = qs.docs;
+    WriteBatch batch = FirebaseFirestore.instance.batch();
 
-            batch.update(docRef, {'ispaid': 'pending'});
-            await batch.commit();
-          }
+    // Prepare payment bills and update batch
+    List<Bill> paymentBills = [];
+    for (var doc in docs) {
+      DocumentReference docRef = doc.reference;
+      batch.update(docRef, {'ispaid': 'pending'});
 
-          DocumentReference pref =
-              FirebaseFirestore.instance.collection('payments').doc();
+      // Convert document data to Bill object
+      final data = doc.data() as Map<String, dynamic>;
+      paymentBills.add(Bill.fromMap(data));
+    }
 
-          final List<Bill> paymentBills =
-              qs.docs.map((doc) => Bill.fromJson(doc.toString())).toList();
-          Payment newPayment = Payment(
-            id: pref.id,
-            bills: paymentBills,
-            paymentMethod: 'cash',
-            paymentdate: DateTime.now(),
-            totalamount: paymentBills.fold(
-              0,
-              (s, bill) => s + bill.total,
-            ),
-          );
-          pref.set(newPayment.toMap());
-          emit(PaymentRequestSentState());
-        } catch (e) {
-          emit(HomeErrorState(errmsg: e.toString()));
-        }
-      }
-    });
+    // Commit batch update
+    await batch.commit();
+
+    // Create and save the payment document
+    DocumentReference pref = FirebaseFirestore.instance.collection('users').doc(userId).collection('payments').doc();
+    Payment newPayment = Payment(
+      id: pref.id,
+      bills: paymentBills,
+      paymentMethod: 'cash',
+      paymentdate: DateTime.now(),
+      totalamount: paymentBills.fold(
+        0,
+        (s, bill) => s + bill.total,
+      ),
+    );
+    await pref.set(newPayment.toMap());
+
+    emit(PaymentRequestSentState());
+  } catch (e) {
+    emit(HomeErrorState(errmsg: e.toString()));
+  }
+});
   }
 }

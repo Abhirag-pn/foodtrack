@@ -36,7 +36,7 @@ class Payment {
   factory Payment.fromMap(Map<String, dynamic> map) {
     return Payment(
       bills: List<Bill>.from(
-        (map['bills'] as List<int>).map<Bill>(
+        (map['bills'] as  List<dynamic> ).map<Bill>(
           (x) => Bill.fromMap(x as Map<String, dynamic>),
         ),
       ),

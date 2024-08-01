@@ -11,9 +11,10 @@ class AdminBillLoadingState extends AdminprofileexpandState {}
 
 class AdminBillLoadedState extends AdminprofileexpandState {
   final List<Bill> bills;
+  final List<Payment>requests;
   final String username;
 
-  AdminBillLoadedState( { required this.bills,required this.username,});
+  AdminBillLoadedState(  { required this.requests,required this.bills,required this.username,});
 }
 
 class AdminBillErrorState extends AdminprofileexpandActionState {
@@ -30,7 +31,9 @@ class AdminBillExpandedState extends AdminprofileexpandActionState {
 
 class MarkAsPaidClickedState extends AdminprofileexpandActionState {
  
+final List<Payment>requests;
 
+  MarkAsPaidClickedState({required this.requests});
 
 }
 class MarkAsPaidUpdatedState extends AdminprofileexpandActionState {

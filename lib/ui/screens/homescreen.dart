@@ -54,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }
           if (state is PaymentRequestSentState) {
            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Payment Request Have Been Sent!")));
+           homebloc.add(GetBillDetailsEvent());
           }
           if (state is HomeErrorState) {
            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.errmsg)));

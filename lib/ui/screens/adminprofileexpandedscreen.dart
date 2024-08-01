@@ -6,6 +6,7 @@ import 'package:foodtrack/bloc/adminprofilebloc/adminprofileexpand_bloc.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/screens/billexpandscreen.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 
 import '../../models/paymentmodel.dart';
 import '../widgets/alertrow.dart';
@@ -51,7 +52,7 @@ class _AdminProfileExpandedScreenState
                 arguments: state.bill);
           }
           if (state is MarkAsPaidClickedState) {
-        
+            requestsDialog(context: context,requests: state.requests,adminbloc: profileexpandedbloc);
           }
           if (state is MarkAsPaidUpdatedState
           ) {
@@ -160,7 +161,8 @@ class _AdminProfileExpandedScreenState
                                           SizedBox(
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                profileexpandedbloc.add(MarkAsPaidClickedEvent());
+                                                Logger().e(state.requests);
+                                                profileexpandedbloc.add(MarkAsPaidClickedEvent(requests: state.requests));
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 shape: RoundedRectangleBorder(
@@ -297,7 +299,7 @@ class _AdminProfileExpandedScreenState
     );
   }
 
-  Future<dynamic> requestsDialog(BuildContext context,List<Payment> requests) {
+  Future<dynamic> requestsDialog({required BuildContext context,required List<Payment> requests,required AdminprofileexpandBloc  adminbloc}) {
     return showDialog(
                                                 context: context,
                                                 builder: (context) {
@@ -317,6 +319,13 @@ class _AdminProfileExpandedScreenState
                                                         const Text("No Payment Requests")
                                                       ]:List.generate(requests.length, (index) {
                                                         return AlertRow(
+                                                          approve: (){
+                                                            adminbloc.add(MarkAsPaidConfirmedEvent(paymentreqid: requests[index].id));
+                                                          },
+                                                          reject: (){
+                                                            log(requests[index].id);
+                                                            adminbloc.add(MarkAsPaidRejectedEvent(paymentreqid:  requests[index].id));
+                                                          },
                                                           amount: requests[index].totalamount.toString(),
                                                           date: requests[index].paymentdate!,
                                                           type: requests[index].paymentMethod!,

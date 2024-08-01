@@ -21,11 +21,17 @@ class AdminBillExpandEvent extends AdminprofileexpandEvent {
 
 
 class MarkAsPaidClickedEvent extends AdminprofileexpandEvent {
-  
+  final List<Payment>requests;
+
+  MarkAsPaidClickedEvent({required this.requests});
 }
 class MarkAsPaidConfirmedEvent extends AdminprofileexpandEvent {
+final String paymentreqid;
 
+  MarkAsPaidConfirmedEvent({required this.paymentreqid});
 }
 class MarkAsPaidRejectedEvent extends AdminprofileexpandEvent {
+final String paymentreqid;
 
+  MarkAsPaidRejectedEvent({required this.paymentreqid});
 }

@@ -6,10 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:foodtrack/bloc/homebloc/home_bloc.dart';
 import 'package:foodtrack/models/billmodel.dart';
 import 'package:foodtrack/models/usermodel.dart';
+import 'package:logger/logger.dart';
 import 'package:meta/meta.dart';
 
 import '../../models/paymentmodel.dart';
-
 
 part 'adminprofileexpand_event.dart';
 part 'adminprofileexpand_state.dart';
@@ -44,9 +44,7 @@ class AdminprofileexpandBloc
         final reqsnapshot = await FirebaseFirestore.instance
             .collection('users')
             .doc(event.userid)
-            .collection('paymentrequests')
-            .where('isCompleted', isEqualTo: false)
-            .where('isRejected', isEqualTo: false)
+            .collection('payments')
             .get();
         var requests = reqsnapshot.docs.map((doc) {
           final data = doc.data();
@@ -55,7 +53,10 @@ class AdminprofileexpandBloc
         log(requests.toString());
 
         emit(AdminBillLoadedState(
-            bills: bills, username: userob.name,));
+          requests: requests,
+          bills: bills,
+          username: userob.name,
+        ));
       } catch (e, s) {
         log(e.toString());
         log(s.toString());
@@ -73,30 +74,79 @@ class AdminprofileexpandBloc
       }
     });
     on<MarkAsPaidClickedEvent>((event, emit) async {
-      emit(MarkAsPaidClickedState());
+      emit(MarkAsPaidClickedState(requests: event.requests));
     });
     on<MarkAsPaidConfirmedEvent>((event, emit) async {
-      
-       try {
-          String userId = FirebaseAuth.instance.currentUser!.uid;
-          final QuerySnapshot qs = await FirebaseFirestore.instance
-              .collection('users').doc(userId).collection('bills')
-              .where('ispaid', isEqualTo: 'pending')
-              .get();
-          List<QueryDocumentSnapshot> docs = qs.docs;
-          WriteBatch batch = FirebaseFirestore.instance.batch();
-          for (var doc in docs) {
-            DocumentReference docRef = doc.reference;
+      try {
+        String userId = FirebaseAuth.instance.currentUser!.uid;
+        final DocumentSnapshot pd = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .collection('payments')
+            .doc(event.paymentreqid)
+            .get();
+        List<Bill> billsList = pd['bills'];
+        WriteBatch batch = FirebaseFirestore.instance.batch();
+        for (Bill b in billsList) {
+          String id = b.id;
+          DocumentReference billRef = FirebaseFirestore.instance
+              .collection('users')
+              .doc(userId)
+              .collection('bills')
+              .doc(id);
 
-            batch.update(docRef, {'ispaid': 'true'});
-            await batch.commit();
-          }
-          emit(MarkAsPaidUpdatedState(isRejected: false));
-         
-        } catch (e) {
-          emit(AdminBillErrorState(errmsg: e.toString()));
+          batch.update(billRef, {'ispaid': 'true'});
+          await batch.commit();
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(userId)
+              .collection('payments')
+              .doc(userId)
+              .set({'isCompleted': true});
         }
-      
+        emit(MarkAsPaidUpdatedState(isRejected: false));
+      } catch (e) {
+        emit(AdminBillErrorState(errmsg: e.toString()));
+      }
+    });
+    on<MarkAsPaidRejectedEvent>((event, emit) async {
+      try {
+       
+        String userId = FirebaseAuth.instance.currentUser!.uid;
+        final DocumentSnapshot pd = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .collection('payments')
+            .doc(event.paymentreqid)
+            .get();
+        if(!pd.exists)
+        {
+          Logger().e("ERROR");
+        }
+         final Payment payment=Payment.fromMap(pd.data()as Map<String,dynamic>);   
+        List<Bill> billsList = payment.bills;
+        WriteBatch batch = FirebaseFirestore.instance.batch();
+        for (Bill b in billsList) {
+          String id = b.id;
+          DocumentReference billRef = FirebaseFirestore.instance
+              .collection('users')
+              .doc(userId)
+              .collection('bills')
+              .doc(id);
+
+          batch.update(billRef, {'ispaid': 'false'});
+          await batch.commit();
+        }
+        await FirebaseFirestore.instance
+              .collection('users')
+              .doc(userId)
+              .collection('payments')
+              .doc(userId)
+              .set({'isRejected':true});
+        emit(MarkAsPaidUpdatedState(isRejected: true));
+      } catch (e) {
+        emit(AdminBillErrorState(errmsg: e.toString()));
+      }
     });
   }
 }
