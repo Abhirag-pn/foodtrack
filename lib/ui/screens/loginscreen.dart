@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pushReplacementNamed(context, AdminHomeScreen.routename);
           } else if (state is AuthErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 backgroundColor: Colors.red,
                 content: Text("Error"),
               ),

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtrack/bloc/authbloc/auth_bloc.dart';
 import 'package:foodtrack/ui/screens/adminhomescreen.dart';
 import 'package:foodtrack/ui/screens/loginscreen.dart';
-import 'package:foodtrack/ui/widgets/authfooter.dart';
 import 'package:foodtrack/ui/widgets/authheader.dart';
 import 'package:foodtrack/ui/widgets/customtextfeild.dart';
 

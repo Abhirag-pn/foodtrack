@@ -37,10 +37,12 @@ class _SplashscreenState extends State<Splashscreen> {
               final userob = UserModel.fromMap(userdoc.data()!);
               if (userob.role == "user") {
                 log("user found");
+                // ignore: use_build_context_synchronously
                 Navigator.pushReplacementNamed(context, HomeScreen.routename);
               } else {
                 log("admin found");
                 Navigator.pushReplacementNamed(
+                    // ignore: use_build_context_synchronously
                     context, AdminHomeScreen.routename);
               }
             }

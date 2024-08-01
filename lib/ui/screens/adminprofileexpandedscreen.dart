@@ -8,7 +8,6 @@ import 'package:foodtrack/ui/screens/billexpandscreen.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 
-import '../../models/paymentmodel.dart';
 import '../widgets/alertrow.dart';
 import '../widgets/billtile.dart';
 
@@ -53,54 +52,59 @@ class _AdminProfileExpandedScreenState
           }
           if (state is MarkAsPaidClickedState) {
             showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return  AlertDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: const Column(
+                    children: [
+                      Text("Payment Requests"),
+                    ],
+                  ),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: state.requests.isEmpty
+                        ? [const Text("No Payment Requests")]
+                        : List.generate(
+                            state.requests.length,
+                            (index) {
+                              return AlertRow(
+                                approve: () {
+                                  profileexpandedbloc.add(
+                                      MarkAsPaidConfirmedEvent(
+                                          paymentreqid:
+                                              state.requests[index].id,
+                                          userId: userid!));
+                                  Navigator.pop(context);
+                                   profileexpandedbloc.add(AdminGetBillsEvent(userid: userid!));
+                                },
+                                reject: () {
+                                  log(state.requests[index].id);
 
-                                                    title: const Column(
-                                                      children: [
-                                                        Text(
-                                                            "Payment Requests"),
-                                                          
-                                                      ],
-                                                    ),
-                                                    content: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children:state.requests.isEmpty? [
-                                                        const Text("No Payment Requests")
-                                                      ]:List.generate(state.requests.length, (index) {
-                                                        return AlertRow(
-                                                          approve: (){
-                                                           
-                                                            profileexpandedbloc.add(MarkAsPaidConfirmedEvent(paymentreqid: state.requests[index].id,userId: userid!));
-                                                             Navigator.pop(context);
-                                                          },
-                                                          reject: (){
-                                                            log(state.requests[index].id);
-                                                            
-                                                            profileexpandedbloc.add(MarkAsPaidRejectedEvent(paymentreqid:  state.requests[index].id,userId: userid!));
-                                                            Navigator.pop(context);
-                                                          },
-                                                          amount: state.requests[index].totalamount.toString(),
-                                                          date: state.requests[index].paymentdate!,
-                                                          type: state.requests[index].paymentMethod!,
+                                  profileexpandedbloc.add(
+                                      MarkAsPaidRejectedEvent(
+                                          paymentreqid:
+                                              state.requests[index].id,
+                                          userId: userid!));
 
-                                                        );
-                                                      },),
-                                                    ),
-                                                  );
-                                                },
-                                              );
+                                  Navigator.pop(context);
+                                   profileexpandedbloc.add(AdminGetBillsEvent(userid: userid!));
+                                },
+                                amount: state.requests[index].totalamount
+                                    .toString(),
+                                date: state.requests[index].paymentdate!,
+                                type: state.requests[index].paymentMethod!,
+                              );
+                            },
+                          ),
+                  ),
+                );
+              },
+            );
           }
-          if (state is MarkAsPaidUpdatedState
-          ) {
-            
-          }
-        
+          if (state is MarkAsPaidUpdatedState) {}
 
           if (state is AdminBillErrorState) {
-           Logger().e(state.errmsg);
+            log(state.errmsg);
           }
         },
         builder: (context, state) {
@@ -201,7 +205,10 @@ class _AdminProfileExpandedScreenState
                                             child: ElevatedButton(
                                               onPressed: () {
                                                 Logger().e(state.requests);
-                                                profileexpandedbloc.add(MarkAsPaidClickedEvent(requests: state.requests));
+                                                profileexpandedbloc.add(
+                                                    MarkAsPaidClickedEvent(
+                                                        requests:
+                                                            state.requests));
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 shape: RoundedRectangleBorder(
@@ -337,6 +344,4 @@ class _AdminProfileExpandedScreenState
       ),
     );
   }
-
-    }
-
+}

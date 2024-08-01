@@ -14,7 +14,7 @@ class AlertRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(  
       children: [
-       Divider(), SizedBox(
+       const Divider(), SizedBox(
           width: double.maxFinite,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,7 +26,7 @@ class AlertRow extends StatelessWidget {
                   Text( DateFormat('EEEE dd MMMM').format(date),
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
-                  SizedBox(height: 5,),
+                  const SizedBox(height: 5,),
                   Row(
                     children: [
                       Text(
@@ -36,7 +36,7 @@ class AlertRow extends StatelessWidget {
                             .labelLarge!
                             .copyWith(fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                      Image.asset(type=='gpay'?'assets/images/gpayicon.png':'assets/images/cashicon.png',height: 20,width: 20,)
@@ -52,12 +52,12 @@ class AlertRow extends StatelessWidget {
                   color: Colors.red,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
               GestureDetector(
                 onTap:approve ,
-                child: Icon(
+                child: const Icon(
                   Icons.done,
                   color: Colors.green,
                 ),

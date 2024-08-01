@@ -102,14 +102,11 @@ on<CashPaymentEvent>((event, emit) async {
 
     List<QueryDocumentSnapshot> docs = qs.docs;
     WriteBatch batch = FirebaseFirestore.instance.batch();
-
-    // Prepare payment bills and update batch
     List<Bill> paymentBills = [];
     for (var doc in docs) {
       DocumentReference docRef = doc.reference;
       batch.update(docRef, {'ispaid': 'pending'});
 
-      // Convert document data to Bill object
       final data = doc.data() as Map<String, dynamic>;
       paymentBills.add(Bill.fromMap(data));
     }

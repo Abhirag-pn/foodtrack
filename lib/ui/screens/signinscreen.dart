@@ -5,7 +5,6 @@ import 'package:foodtrack/ui/screens/homescreen.dart';
 import 'package:foodtrack/ui/screens/loginscreen.dart';
 import 'package:foodtrack/ui/widgets/authfooter.dart';
 import 'package:foodtrack/utils/validators.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../bloc/authbloc/auth_bloc.dart';
 import '../widgets/authheader.dart';
@@ -26,7 +25,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController confirmpasswordController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
 
-  String? _usernameError;
 
   @override
   void dispose() {

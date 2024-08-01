@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/models/billmodel.dart';
 import 'package:foodtrack/models/foodmodel.dart';
-import 'package:foodtrack/ui/widgets/billtile.dart';
 import 'package:foodtrack/ui/widgets/customfoodtile.dart';
 
 class BillExpandScreen extends StatelessWidget {

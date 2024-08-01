@@ -6,8 +6,6 @@ import 'package:foodtrack/bloc/addfoodbloc/addfood_bloc.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/models/foodmodel.dart';
 import 'package:foodtrack/ui/screens/homescreen.dart';
-import 'package:foodtrack/ui/widgets/customtextfeild.dart';
-import 'package:foodtrack/ui/widgets/incrementer.dart';
 import 'package:logger/logger.dart';
 
 import '../widgets/filterpick.dart';
@@ -213,7 +211,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                             )
                           : const Expanded(
                               child:
-                                  const Center(child: Text("No Items Found")))
+                                  Center(child: Text("No Items Found")))
                       : const Expanded(
                           child: Center(
                             child: CircularProgressIndicator(),
