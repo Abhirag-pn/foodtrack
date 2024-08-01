@@ -75,7 +75,8 @@ class _AdminProfileExpandedScreenState
                                               state.requests[index].id,
                                           userId: userid!));
                                   Navigator.pop(context);
-                                   profileexpandedbloc.add(AdminGetBillsEvent(userid: userid!));
+                                  profileexpandedbloc
+                                      .add(AdminGetBillsEvent(userid: userid!));
                                 },
                                 reject: () {
                                   log(state.requests[index].id);
@@ -87,7 +88,8 @@ class _AdminProfileExpandedScreenState
                                           userId: userid!));
 
                                   Navigator.pop(context);
-                                   profileexpandedbloc.add(AdminGetBillsEvent(userid: userid!));
+                                  profileexpandedbloc
+                                      .add(AdminGetBillsEvent(userid: userid!));
                                 },
                                 amount: state.requests[index].totalamount
                                     .toString(),
@@ -201,49 +203,76 @@ class _AdminProfileExpandedScreenState
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          SizedBox(
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                Logger().e(state.requests);
-                                                profileexpandedbloc.add(
-                                                    MarkAsPaidClickedEvent(
-                                                        requests:
-                                                            state.requests));
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height /
-                                                              10),
-                                                ),
-                                                minimumSize: Size(
-                                                  MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      2.5,
-                                                  MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      15,
-                                                ),
-                                                backgroundColor: onprimary,
-                                                foregroundColor: secondary,
-                                              ),
-                                              child: Text(
-                                                "Mark as paid",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .titleMedium!
-                                                    .copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: secondary,
+                                          Stack(
+                                            clipBehavior: Clip.none,
+                                            children: [
+                                              SizedBox(
+                                                child: ElevatedButton(
+                                                  onPressed: () {
+                                                    Logger().e(state.requests);
+                                                    profileexpandedbloc.add(
+                                                        MarkAsPaidClickedEvent(
+                                                            requests: state
+                                                                .requests));
+                                                  },
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height /
+                                                                  10),
                                                     ),
+                                                    minimumSize: Size(
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .width /
+                                                          2.5,
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height /
+                                                          15,
+                                                    ),
+                                                    backgroundColor: onprimary,
+                                                    foregroundColor: secondary,
+                                                  ),
+                                                  child: Text(
+                                                    "Mark as paid",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .titleMedium!
+                                                        .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: secondary,
+                                                        ),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                            if(state.requests.isNotEmpty) 
+                                              Positioned(
+                                                right: -8,
+                                                top: -8,
+                                                child: CircleAvatar(
+                                                  backgroundColor:
+                                                      Colors.redAccent,
+                                                  radius: 15,
+                                                  child: Text(
+                                                    state.requests.length
+                                                        .toString(),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelLarge!
+                                                        .copyWith(
+                                                            color: secondary),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           const SizedBox(
                                             width: 10,
