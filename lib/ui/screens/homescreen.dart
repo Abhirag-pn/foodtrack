@@ -282,18 +282,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         FontWeight.w500),
                                           ),
                                         ),
+                                      const Divider(),
                                         const SizedBox(
                                           height: 10,
                                         ),
+                                          
                                         Expanded(
-                                          child: ListView.builder(
+                                          child: state.bills.isNotEmpty?ListView.builder(
                                             padding: const EdgeInsets.only(
                                                 top: 15, bottom: 15),
                                             itemCount: state.bills.length,
                                             itemBuilder: (context, index) {
                                               return BillTile(
                                                   onpress: () {
-                                                    log("hghjfy");
+                                                  
                                                     homebloc.add(
                                                         BillExpandEvent(
                                                             bill: state
@@ -306,7 +308,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   img:
                                                       "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png");
                                             },
-                                          ),
+                                          ):const Center(child: Text("No bills"),),
                                         ),
                                       ],
                                     ),

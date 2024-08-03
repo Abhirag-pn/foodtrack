@@ -21,7 +21,7 @@ class AddFoodScreen extends StatefulWidget {
 
 class _AddFoodScreenState extends State<AddFoodScreen> {
   List<Food> addedFood = [];
-  String? selectedFilter=null;
+  String? selectedFilter;
 
   final addfoodbloc = AddfoodBloc();
   @override
@@ -91,16 +91,20 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                           img:
                               "https://static.vecteezy.com/system/resources/previews/019/614/281/non_2x/breakfast-graphic-clipart-design-free-png.png",
                           text: "Breakfast",
-                          actionFunction: (value) {
-                          selectedFilter="Breakfast";
-                            if (value==true) {
-                              addfoodbloc
-                                  .add(GetFoodItemsEvent(type: "Breakfast"));
-                            } else {
-                              selectedFilter=null;
-                              addfoodbloc.add(GetFoodItemsEvent(type: null));
-                            }
+                         actionFunction: (){
+                          if(selectedFilter!="Breakfast")
+                          {
+                            selectedFilter="Breakfast";
+                            addfoodbloc.add(GetFoodItemsEvent(type: "Breakfast"));
+                          }else
+                          {
+                            selectedFilter=null;
+                            addfoodbloc.add(GetFoodItemsEvent(type: null));
                           }
+                          setState(() {
+                            
+                          });
+                         }
                         ),
                         const SizedBox(
                           width: 10,
@@ -110,16 +114,20 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                           img:
                               "https://purepng.com/public/uploads/large/purepng.com-lunch-boxfood-box-school-lunch-box-lunch-941524636030wxs9g.png",
                           text: "Lunch",
-                         actionFunction: (value) {
-                          selectedFilter="Lunch";
-                            if (value==true) {
-                              addfoodbloc
-                                  .add(GetFoodItemsEvent(type: "Lunch"));
-                            } else {
-                              selectedFilter=null;
-                              addfoodbloc.add(GetFoodItemsEvent(type: null));
-                            }
+                        actionFunction: (){
+                          if(selectedFilter!="Lunch")
+                          {
+                            selectedFilter="Lunch";
+                            addfoodbloc.add(GetFoodItemsEvent(type: "Lunch"));
+                          }else
+                          {
+                            selectedFilter=null;
+                            addfoodbloc.add(GetFoodItemsEvent(type: null));
                           }
+                          setState(() {
+                            
+                          });
+                         }
                         ),
                         const SizedBox(
                           width: 10,
@@ -129,16 +137,20 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                           img:
                               "https://i0.wp.com/www.treatwell.co.in/wp-content/uploads/2023/01/pazhampori.png?fit=500%2C500&ssl=1",
                           text: "Snacks",
-                         actionFunction: (value) {
-                          selectedFilter="Snacks";
-                            if (value==true) {
-                              addfoodbloc
-                                  .add(GetFoodItemsEvent(type: "Snacks"));
-                            } else {
-                              selectedFilter=null;
-                              addfoodbloc.add(GetFoodItemsEvent(type: null));
-                            }
+                         actionFunction: (){
+                          if(selectedFilter!="Snacks")
+                          {
+                            selectedFilter="Snacks";
+                            addfoodbloc.add(GetFoodItemsEvent(type: "Snacks"));
+                          }else
+                          {
+                            selectedFilter=null;
+                            addfoodbloc.add(GetFoodItemsEvent(type: null));
                           }
+                          setState(() {
+                            
+                          });
+                         }
                         ),
                         const SizedBox(
                           width: 10,
@@ -148,16 +160,20 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                           img:
                               "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png",
                           text: "Curry",
-                           actionFunction: (value) {
-                          selectedFilter="Curry";
-                            if (value==true) {
-                              addfoodbloc
-                                  .add(GetFoodItemsEvent(type: "Curry"));
-                            } else {
-                              selectedFilter=null;
-                              addfoodbloc.add(GetFoodItemsEvent(type: null));
-                            }
+                          actionFunction: (){
+                          if(selectedFilter!="Curry")
+                          {
+                            selectedFilter="Curry";
+                            addfoodbloc.add(GetFoodItemsEvent(type: "Curry"));
+                          }else
+                          {
+                            selectedFilter=null;
+                            addfoodbloc.add(GetFoodItemsEvent(type: null));
                           }
+                          setState(() {
+                            
+                          });
+                         }
                         ),
                         const SizedBox(
                           width: 10,
@@ -167,16 +183,20 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                           img:
                               "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Cup_of_tea.png/1159px-Cup_of_tea.png",
                           text: "Beverages",
-                         actionFunction: (value) {
-                          selectedFilter="Beverages";
-                            if (value==true) {
-                              addfoodbloc
-                                  .add(GetFoodItemsEvent(type: "Beverages"));
-                            } else {
-                              selectedFilter=null;
-                              addfoodbloc.add(GetFoodItemsEvent(type: null));
-                            }
-                          },
+                         actionFunction: (){
+                          if(selectedFilter!="Beverages")
+                          {
+                            selectedFilter="Beverages";
+                            addfoodbloc.add(GetFoodItemsEvent(type: "Beverages"));
+                          }else
+                          {
+                            selectedFilter=null;
+                            addfoodbloc.add(GetFoodItemsEvent(type: null));
+                          }
+                          setState(() {
+                            
+                          });
+                         }
                         ),
                         const SizedBox(
                           width: 10,
@@ -186,16 +206,20 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                           img:
                               "https://static.vecteezy.com/system/resources/thumbnails/025/230/141/small_2x/fried-fish-carp-and-fresh-lemon-slice-on-transparent-background-free-png.png",
                           text: "Addons",
-                          actionFunction: (value) {
-                          selectedFilter="Addons";
-                            if (value==true) {
-                              addfoodbloc
-                                  .add(GetFoodItemsEvent(type: "Addons"));
-                            } else {
-                              selectedFilter=null;
-                              addfoodbloc.add(GetFoodItemsEvent(type: null));
-                            }
+                    actionFunction: (){
+                          if(selectedFilter!="Addons")
+                          {
+                            selectedFilter="Addons";
+                            addfoodbloc.add(GetFoodItemsEvent(type: "Addons"));
+                          }else
+                          {
+                            selectedFilter=null;
+                            addfoodbloc.add(GetFoodItemsEvent(type: null));
                           }
+                          setState(() {
+                            
+                          });
+                         }
                         ),
                       ],
                     ),
