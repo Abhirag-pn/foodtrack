@@ -78,17 +78,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
             padding: const EdgeInsets.all(15.0),
             child: Form(
               key: _formKey,
-              child: Column(
+              child:state.runtimeType == AuthLoadingState
+                    ? Center(child: CircularProgressIndicator(backgroundColor: primary,),)
+                    : Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: state.runtimeType == AuthLoadingState
-                    ? [
-                        Center(
-                          child: CircularProgressIndicator(
-                            backgroundColor: primary,
-                          ),
-                        )
-                      ]
-                    : [
+                children:  [
                         const Spacer(),
                         const AuthHeader(
                           subtitle: "Create an account to get started",

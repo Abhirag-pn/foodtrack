@@ -52,9 +52,10 @@ class FoodTile extends StatelessWidget {
               children: [
                 Text(
                   name,
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
+                      overflow:TextOverflow.ellipsis
                 ),
                 Text("₹$price", style: Theme.of(context).textTheme.titleMedium),
                 Incrementer(

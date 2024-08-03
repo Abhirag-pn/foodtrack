@@ -17,20 +17,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginRequestEvent>((event, emit) async {
       emit(AuthLoadingState());
       try {
-         log("try");
+        log("try");
         UserCredential credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(
                 email: event.email, password: event.password);
- log("checing cred Block");
         if (credential.user != null) {
-           log("credential!=null");
           final FirebaseFirestore firestore = FirebaseFirestore.instance;
           final docSnapshot = await firestore
               .collection('users')
               .doc(credential.user!.uid)
               .get();
           if (docSnapshot.data()?['role'] == 'admin') {
-             log("emit admin Block");
+            log("emit admin Block");
             emit(AdminAuthSuccessState());
           } else {
             log("emit user Block");
@@ -40,7 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } on FirebaseException catch (e) {
         log("Catch Block");
         String? message;
-       message=e.code;
+        message = e.code;
         log(e.toString());
         emit(
           AuthErrorState(errormessage: message),
@@ -52,7 +50,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (event, emit) async {
         try {
           Future<bool> validateUsername(String? username) async {
-            
             final userCollection =
                 FirebaseFirestore.instance.collection('users');
             final querySnapshot =
@@ -73,8 +70,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             UserCredential credential = await FirebaseAuth.instance
                 .createUserWithEmailAndPassword(
                     email: event.email, password: event.password);
-    
-            
+
             UserModel userinfo = UserModel(
                 id: credential.user!.uid,
                 email: credential.user!.email!,
@@ -85,7 +81,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                 .doc(credential.user!.uid)
                 .set(userinfo.toMap());
 
-                emit(AuthSuccessState());
+            emit(AuthSuccessState());
           }
         } on FirebaseAuthException catch (err) {
           log("Catch Block");
@@ -100,15 +96,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(
             AuthErrorState(errormessage: message),
           );
-
-          
         }
       },
     );
 
-
-
-    
     on<ToggleSignUp>(
       (event, emit) {
         emit(UserSignUpState());

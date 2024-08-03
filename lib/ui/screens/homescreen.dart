@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },);
           }
           if (state is HistoryState) {
-           Navigator.of(context).pushNamed(PaymentHistoryScreen.routename);
+           Navigator.of(context).pushNamed(PaymentHistoryScreen.routename,arguments:state.id);
           }
           if (state is LogoutState) {
           Navigator.popUntil(context, (route) => route.isFirst);
@@ -185,7 +185,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             SizedBox(
                                                 child: ElevatedButton(
                                               onPressed: () {
-                                              homebloc.add(PayClickedEvent(amount:state.bills.fold<double>(0, (sum, bill) => sum + bill.total).toDouble() ));
+                                                if(state.bills.fold<double>(0, (sum, bill) => sum + bill.total).toDouble()>0)
+                                          {    homebloc.add(PayClickedEvent(amount:state.bills.fold<double>(0, (sum, bill) => sum + bill.total).toDouble() ));}
+                                          else
+                                          {
+                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("There's nothing to pay")));
+                                          }
                                               },
                                               style: ElevatedButton.styleFrom(
                                                   shape: RoundedRectangleBorder(
@@ -222,7 +227,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                            
                                             OutlinedButton(
                                                 onPressed: () {
-                                                  homebloc.add(HistoryClickedEvent());
+                                                  
+                                                  homebloc.add(HistoryClickedEvent(id: state.id));
                                                 },
                                                 child: Text(
                                                   "History",

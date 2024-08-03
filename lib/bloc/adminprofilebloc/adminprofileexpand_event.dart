@@ -11,7 +11,11 @@ class AdminGetBillsEvent extends AdminprofileexpandEvent {
 
 class AdminMarkPaidClickEvent extends AdminprofileexpandEvent {}
 
-class AdminHistoryClickEvent extends AdminprofileexpandEvent {}
+class AdminHistoryClickEvent extends AdminprofileexpandEvent {
+    final String id;
+
+  AdminHistoryClickEvent({required this.id});
+}
 
 class AdminBillExpandEvent extends AdminprofileexpandEvent {
   final Bill bill;

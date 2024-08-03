@@ -41,8 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
-         listenWhen: (previous, current) => current is AuthActionState,
-        buildWhen: (previous, current) => current is !AuthActionState,
+        listenWhen: (previous, current) => current is AuthActionState,
+        buildWhen: (previous, current) => current is! AuthActionState,
         listener: (context, state) {
           if (state is UserSignUpState) {
             Navigator.popUntil(context, (route) => route.isFirst);
@@ -52,93 +52,93 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pushReplacementNamed(context, Adminloginscreen.routename);
           } else if (state is AuthSuccessState) {
             Navigator.popUntil(context, (route) => route.isFirst);
-            
+
             Navigator.pushReplacementNamed(context, HomeScreen.routename);
           } else if (state is AdminAuthSuccessState) {
             Navigator.popUntil(context, (route) => route.isFirst);
-            
+
             Navigator.pushReplacementNamed(context, AdminHomeScreen.routename);
           } else if (state is AuthErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
+              SnackBar(
                 backgroundColor: Colors.red,
-                content: Text("Error"),
+                content: Text(state.errormessage),
               ),
             );
           }
         },
         builder: (context, state) {
-          return  Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: state.runtimeType == AuthLoadingState
-                      ? [
-                          CircularProgressIndicator(
-                            backgroundColor: primary,
-                          )
-                        ]
-                      : [
-                          const Spacer(),
-                          const AuthHeader(
-                            subtitle: "Login with your account to continue",
-                            title: "Login",
-                            img: "assets/images/authbg.svg",
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          CustomTextFeild(
-                            validator: validateEmail,
-                            ctrlr: emailController,
-                            hint: "Email",
-                            type: FeildType.normal,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          CustomTextFeild(
-                            validator: validatePassword,
-                            ctrlr: passwordController,
-                            hint: "Password",
-                            type: FeildType.password,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          ElevatedButton(
-                              onPressed: _submitForm,
-                              child: const Text("Login")),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const Spacer(),
-                           AuthFooter(
-                            text1: "Dont have an account? ",
-                            text2: "Register",
-                            tap: (){BlocProvider.of<AuthBloc>(context)
-                                    .add(ToggleSignUp());},
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextButton(
-                              style: TextButton.styleFrom(
-                                  backgroundColor: secondary),
-                              onPressed: () {
-                                BlocProvider.of<AuthBloc>(context)
-                                    .add(ToggleAdminLogin());
-                              },
-                              child: const Text(
-                                "Admin Login",
-                              ))
-                        ],
-                ),
-              ),
-            
+          return Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Form(
+              key: _formKey,
+              child: state.runtimeType == AuthLoadingState
+                  ? Center(
+                    child: CircularProgressIndicator(
+                        backgroundColor: primary,
+                      ),
+                  )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Spacer(),
+                        const AuthHeader(
+                          subtitle: "Login with your account to continue",
+                          title: "Login",
+                          img: "assets/images/authbg.svg",
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        CustomTextFeild(
+                          validator: validateEmail,
+                          ctrlr: emailController,
+                          hint: "Email",
+                          type: FeildType.normal,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        CustomTextFeild(
+                          validator: validatePassword,
+                          ctrlr: passwordController,
+                          hint: "Password",
+                          type: FeildType.password,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ElevatedButton(
+                            onPressed: _submitForm, child: const Text("Login")),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const Spacer(),
+                        AuthFooter(
+                          text1: "Dont have an account? ",
+                          text2: "Register",
+                          tap: () {
+                            BlocProvider.of<AuthBloc>(context)
+                                .add(ToggleSignUp());
+                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextButton(
+                            style: TextButton.styleFrom(
+                                backgroundColor: secondary),
+                            onPressed: () {
+                              BlocProvider.of<AuthBloc>(context)
+                                  .add(ToggleAdminLogin());
+                            },
+                            child: const Text(
+                              "Admin Login",
+                            ))
+                      ],
+                    ),
+            ),
           );
         },
       ),

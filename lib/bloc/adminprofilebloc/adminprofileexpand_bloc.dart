@@ -29,7 +29,6 @@ class AdminprofileexpandBloc
             .collection('users')
             .doc(event.userid)
             .collection('bills')
-            .where('ispaid', isEqualTo: 'false')
             .get();
 
         log('Fetched bills: ${snapshot.docs.length}');
@@ -54,6 +53,7 @@ class AdminprofileexpandBloc
         log(requests.toString());
 
         emit(AdminBillLoadedState(
+          id: event.userid,
           requests: requests,
           bills: bills,
           username: userob.name,
@@ -77,98 +77,106 @@ class AdminprofileexpandBloc
     on<MarkAsPaidClickedEvent>((event, emit) async {
       emit(MarkAsPaidClickedState(requests: event.requests));
     });
-   on<MarkAsPaidConfirmedEvent>((event, emit) async {
-  try {
-    String userId = event.userId;
-    final DocumentSnapshot pd = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .collection('payments')
-        .doc(event.paymentreqid)
-        .get();
-
-    if (pd.exists) {
-      Map<String, dynamic>? paymentData = pd.data() as Map<String, dynamic>?;
-      if (paymentData != null) {
-        List<dynamic> billsList = paymentData['bills'];
-        WriteBatch batch = FirebaseFirestore.instance.batch();
-
-        for (dynamic billData in billsList) {
-          String billId = billData['id'];
-          DocumentReference billRef = FirebaseFirestore.instance
-              .collection('users')
-              .doc(userId)
-              .collection('bills')
-              .doc(billId);
-
-          batch.update(billRef, {'ispaid': 'true'});
-        }
-
-        await batch.commit();
-        await FirebaseFirestore.instance
+    on<MarkAsPaidConfirmedEvent>((event, emit) async {
+      try {
+        String userId = event.userId;
+        final DocumentSnapshot pd = await FirebaseFirestore.instance
             .collection('users')
             .doc(userId)
             .collection('payments')
             .doc(event.paymentreqid)
-            .update({'isCompleted': true});
+            .get();
 
-        emit(MarkAsPaidUpdatedState(isRejected: false));
-      } else {
-        emit(AdminBillErrorState(errmsg: "Payment data is null."));
+        if (pd.exists) {
+          Map<String, dynamic>? paymentData =
+              pd.data() as Map<String, dynamic>?;
+          if (paymentData != null) {
+            List<dynamic> billsList = paymentData['bills'];
+            WriteBatch batch = FirebaseFirestore.instance.batch();
+
+            for (dynamic billData in billsList) {
+              String billId = billData['id'];
+              DocumentReference billRef = FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(userId)
+                  .collection('bills')
+                  .doc(billId);
+
+              batch.update(billRef, {'ispaid': 'true'});
+            }
+
+            await batch.commit();
+            await FirebaseFirestore.instance
+                .collection('users')
+                .doc(userId)
+                .collection('payments')
+                .doc(event.paymentreqid)
+                .update({'isCompleted': true});
+
+            emit(MarkAsPaidUpdatedState(isRejected: false));
+          } else {
+            emit(AdminBillErrorState(errmsg: "Payment data is null."));
+          }
+        } else {
+          emit(AdminBillErrorState(
+              errmsg:
+                  "No payment document found with ID ${event.paymentreqid}"));
+        }
+      } catch (e, s) {
+        log(e.toString());
+        log(s.toString());
+        emit(AdminBillErrorState(errmsg: e.toString()));
       }
-    } else {
-      emit(AdminBillErrorState(errmsg: "No payment document found with ID ${event.paymentreqid}"));
-    }
-  } catch (e, s) {
-    log(e.toString());
-    log(s.toString());
-    emit(AdminBillErrorState(errmsg: e.toString()));
-  }
-});
+    });
 
     on<MarkAsPaidRejectedEvent>((event, emit) async {
       try {
         String userId = event.userId;
         Logger().e(userId);
         log(userId);
-        final  pd =
-            await FirebaseFirestore.instance
-                .collection('users')
-                .doc(userId)
-                .collection('payments')
-                .doc(event.paymentreqid)
-                .get();
-        
-        if(pd.data()!=null){
-          final Payment payment = Payment.fromMap(pd.data()!);
-          List<dynamic> billsList = payment.bills;
-        WriteBatch batch = FirebaseFirestore.instance.batch();
-        for (Bill b in billsList) {
-          String id = b.id;
-          DocumentReference billRef = FirebaseFirestore.instance
-              .collection('users')
-              .doc(userId)
-              .collection('bills')
-              .doc(id);
-          batch.update(billRef, {'ispaid': 'false'});
-          
-        }
-        await batch.commit();
-        await FirebaseFirestore.instance
+        final pd = await FirebaseFirestore.instance
             .collection('users')
             .doc(userId)
             .collection('payments')
             .doc(event.paymentreqid)
-            .update({'isRejected': true});
-        emit(MarkAsPaidUpdatedState(isRejected: true));
-        }else{
-          
+            .get();
+
+        if (pd.data() != null) {
+          final Payment payment = Payment.fromMap(pd.data()!);
+          List<dynamic> billsList = payment.bills;
+          WriteBatch batch = FirebaseFirestore.instance.batch();
+          for (Bill b in billsList) {
+            String id = b.id;
+            DocumentReference billRef = FirebaseFirestore.instance
+                .collection('users')
+                .doc(userId)
+                .collection('bills')
+                .doc(id);
+            batch.update(billRef, {'ispaid': 'false'});
+          }
+          await batch.commit();
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(userId)
+              .collection('payments')
+              .doc(event.paymentreqid)
+              .update({'isRejected': true});
+          emit(MarkAsPaidUpdatedState(isRejected: true));
+        } else {
           emit(AdminBillErrorState(errmsg: "DNULL"));
         }
-        
-        
       } catch (e) {
         emit(AdminBillErrorState(errmsg: e.toString()));
+      }
+    });
+
+     on<AdminHistoryClickEvent>((event, emit) {
+      try {
+        log("History clicked");
+
+        emit(AdminToggleHistory(id:event.id ));
+      } catch (e) {
+        log(e.toString());
       }
     });
   }

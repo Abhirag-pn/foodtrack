@@ -9,7 +9,11 @@ class PayClickedEvent extends HomeEvent {
 
   PayClickedEvent({required this.amount});
 }
-class HistoryClickedEvent extends HomeEvent {}
+class HistoryClickedEvent extends HomeEvent {
+  final String id;
+
+  HistoryClickedEvent({required this.id});
+}
 class BillExpandEvent extends HomeEvent {
   final Bill bill;
 

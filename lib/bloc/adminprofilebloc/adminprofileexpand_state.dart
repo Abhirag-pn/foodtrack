@@ -13,8 +13,9 @@ class AdminBillLoadedState extends AdminprofileexpandState {
   final List<Bill> bills;
   final List<Payment>requests;
   final String username;
+  final String id;
 
-  AdminBillLoadedState(  { required this.requests,required this.bills,required this.username,});
+  AdminBillLoadedState(  { required this.requests,required this.bills,required this.username,required this.id});
 }
 
 class AdminBillErrorState extends AdminprofileexpandActionState {
@@ -44,4 +45,12 @@ final bool isRejected;
 
 class AdminToggleMarkAsPaid extends AdminprofileexpandActionState {}
 
-class AdminToggleHistory extends AdminprofileexpandActionState {}
+class AdminToggleHistory extends AdminprofileexpandActionState {
+
+final String id;
+
+  AdminToggleHistory({required this.id});
+
+
+
+}

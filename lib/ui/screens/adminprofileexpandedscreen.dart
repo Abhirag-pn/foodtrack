@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtrack/bloc/adminprofilebloc/adminprofileexpand_bloc.dart';
+import 'package:foodtrack/bloc/homebloc/home_bloc.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/screens/billexpandscreen.dart';
 import 'package:intl/intl.dart';
@@ -10,6 +11,7 @@ import 'package:logger/logger.dart';
 
 import '../widgets/alertrow.dart';
 import '../widgets/billtile.dart';
+import 'paymenthistoryscreen.dart';
 
 class AdminProfileExpandedScreen extends StatefulWidget {
   static const routename = 'adminprofileexpand';
@@ -103,10 +105,19 @@ class _AdminProfileExpandedScreenState
               },
             );
           }
-          if (state is MarkAsPaidUpdatedState) {}
+          if (state is MarkAsPaidUpdatedState) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(state.isRejected
+                    ? "Payment rejected "
+                    : "Payment accepted")));
+          }
 
+          if (state is AdminToggleHistory) {
+             Navigator.of(context).pushNamed(PaymentHistoryScreen.routename,arguments:state.id); 
+          }
           if (state is AdminBillErrorState) {
-            log(state.errmsg);
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.errmsg)));
           }
         },
         builder: (context, state) {
@@ -253,32 +264,34 @@ class _AdminProfileExpandedScreenState
                                                   ),
                                                 ),
                                               ),
-                                            if(state.requests.isNotEmpty) 
-                                              Positioned(
-                                                right: -8,
-                                                top: -8,
-                                                child: CircleAvatar(
-                                                  backgroundColor:
-                                                      Colors.redAccent,
-                                                  radius: 15,
-                                                  child: Text(
-                                                    state.requests.length
-                                                        .toString(),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .labelLarge!
-                                                        .copyWith(
-                                                            color: secondary),
+                                              if (state.requests.isNotEmpty)
+                                                Positioned(
+                                                  right: -8,
+                                                  top: -8,
+                                                  child: CircleAvatar(
+                                                    backgroundColor:
+                                                        Colors.redAccent,
+                                                    radius: 15,
+                                                    child: Text(
+                                                      state.requests.length
+                                                          .toString(),
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .labelLarge!
+                                                          .copyWith(
+                                                              color: secondary),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
                                             ],
                                           ),
                                           const SizedBox(
                                             width: 10,
                                           ),
                                           OutlinedButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              profileexpandedbloc.add(AdminHistoryClickEvent(id: state.id));
+                                            },
                                             child: Text(
                                               "History",
                                               style: Theme.of(context)

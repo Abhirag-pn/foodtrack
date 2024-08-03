@@ -55,16 +55,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             Navigator.pushNamed(context, AdminProfileExpandedScreen.routename,
                 arguments: state.userid);
           }
-          if (state is FoodAddedState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Food added successfully!')));
-            adminhomebloc.add(GetUsersEvent());
-          }
-          if (state is FoodAddedState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Food added successfully!')));
-            adminhomebloc.add(GetUsersEvent());
-          }
            if (state is LogoutState) {
           Navigator.popUntil(context, (route) => route.isFirst);
           Navigator.pushReplacementNamed(context, LoginScreen.routename);
@@ -208,13 +198,22 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                 value: "Lunch",
                                 child: Text("Lunch"),
                               ),
+                       
+                              DropdownMenuItem(
+                                value: "Curry",
+                                child: Text("Curry"),
+                              ),
                               DropdownMenuItem(
                                 value: "Snacks",
                                 child: Text("Snacks"),
                               ),
                               DropdownMenuItem(
-                                value: "Beverage",
-                                child: Text("Beverage"),
+                                value: "Beverages",
+                                child: Text("Beverages"),
+                              ),
+                              DropdownMenuItem(
+                                value: "Addons",
+                                child: Text("Addons"),
                               ),
                             ],
                             onChanged: (value) {
@@ -241,6 +240,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               ),
                               type: dvalue));
                           Navigator.of(context).pop();
+                          linkController.clear();
+                          nameController.clear();
+                          priceController.clear();
+                          dvalue='Breakfast';
                         }
                       },
                       child: const Text("Add food"))

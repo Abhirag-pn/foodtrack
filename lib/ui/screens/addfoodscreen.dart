@@ -40,22 +40,19 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                 .showSnackBar(SnackBar(content: Text(state.errmsg)));
           }
           if (state is FoodAddedState) {
-           Navigator.of(context).pushReplacementNamed(HomeScreen.routename);
+            Navigator.of(context).pushReplacementNamed(HomeScreen.routename);
           }
         },
         builder: (context, state) {
           return Scaffold(
-              floatingActionButton: FloatingActionButton(onPressed: () {
-                log(addedFood.toString());
-                log(addedFood.first.qty.toString());
-              }),
+              
               appBar: AppBar(
                 title: const Text("Add Food"),
                 backgroundColor: primary,
                 actions: [
                   Text(
                     "₹${addedFood.fold<double>(0, (sum, food) => sum + (food.price * food.qty)).toStringAsFixed(2)}",
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(
                     width: 15,
@@ -64,7 +61,6 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                       onPressed: () {
                         if (addedFood.isNotEmpty) {
                           addfoodbloc.add(AddBillEvent(items: addedFood));
-                          
                         }
                       },
                       icon: const Icon(Icons.done))
@@ -153,11 +149,28 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                         ),
                         FilterPick(
                           img:
+                              "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Cup_of_tea.png/1159px-Cup_of_tea.png",
+                          text: "Beverages",
+                          actionFunction: (selected) {
+                            if (selected) {
+                              addfoodbloc
+                                  .add(GetFoodItemsEvent(type: 'Beverages'));
+                            } else {
+                              addfoodbloc.add(GetFoodItemsEvent(type: null));
+                            }
+                          },
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        FilterPick(
+                          img:
                               "https://static.vecteezy.com/system/resources/thumbnails/025/230/141/small_2x/fried-fish-carp-and-fresh-lemon-slice-on-transparent-background-free-png.png",
                           text: "Addons",
                           actionFunction: (selected) {
                             if (selected) {
-                              addfoodbloc.add(GetFoodItemsEvent(type: 'Addon'));
+                              addfoodbloc
+                                  .add(GetFoodItemsEvent(type: 'Addons'));
                             } else {
                               addfoodbloc.add(GetFoodItemsEvent(type: null));
                             }
@@ -175,7 +188,8 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                                 itemCount: state.fooditems.length,
                                 itemBuilder: (context, index) {
                                   return FoodTile(
-                                    count:getQuantity(state.fooditems[index].id, addedFood),
+                                    count: getQuantity(
+                                        state.fooditems[index].id, addedFood),
                                     name: state.fooditems[index].name,
                                     imglink: state.fooditems[index].imageLink,
                                     price:
@@ -196,7 +210,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                                               .qty = value;
                                         } else {
                                           addedFood.add(state.fooditems[index]);
-                                           addedFood
+                                          addedFood
                                               .firstWhere((element) =>
                                                   element.id ==
                                                   state.fooditems[index].id)
@@ -210,8 +224,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                               ),
                             )
                           : const Expanded(
-                              child:
-                                  Center(child: Text("No Items Found")))
+                              child: Center(child: Text("No Items Found")))
                       : const Expanded(
                           child: Center(
                             child: CircularProgressIndicator(),
@@ -225,11 +238,10 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
   }
 }
 
-int getQuantity(String id,List<Food>addedFood)
-{
-  try{
-return addedFood.firstWhere((element) => element.id==id).qty;
-  }catch(e){
+int getQuantity(String id, List<Food> addedFood) {
+  try {
+    return addedFood.firstWhere((element) => element.id == id).qty;
+  } catch (e) {
     return 0;
   }
 }
