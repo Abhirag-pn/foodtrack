@@ -282,11 +282,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         FontWeight.w500),
                                           ),
                                         ),
-                                      const Divider(),
+                                     
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                          
+                                           const Divider(),
                                         Expanded(
                                           child: state.bills.isNotEmpty?ListView.builder(
                                             padding: const EdgeInsets.only(

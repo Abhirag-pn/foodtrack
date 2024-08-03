@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:flutter_upi_pay/flutter_upi_pay.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -90,6 +90,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<GpayPaymentEvent>((event, emit) async{
       {
         try {
+           
     String userId = FirebaseAuth.instance.currentUser!.uid;
     final QuerySnapshot qs = await FirebaseFirestore.instance
         .collection('users')
@@ -111,7 +112,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     // Commit batch update
     await batch.commit();
-
+    final double total=paymentBills.fold(
+        0,
+        (s, bill) => s + bill.total,
+      );
+    FlutterPayment flutterPayment = FlutterPayment();
+           flutterPayment.launchUpi(
+              upiId: "reshmaaravindn9-1@okaxis",
+              name:FirebaseAuth.instance.currentUser!.uid.toString(),
+              amount: total.toString(),
+              message: "Canteen Payment",
+              currency: "INR");
     // Create and save the payment document
     DocumentReference pref = FirebaseFirestore.instance.collection('users').doc(userId).collection('payments').doc();
     Payment newPayment = Payment(
@@ -119,10 +130,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       bills: paymentBills,
       paymentMethod: 'gpay',
       paymentdate: DateTime.now(),
-      totalamount: paymentBills.fold(
-        0,
-        (s, bill) => s + bill.total,
-      ),
+      totalamount: total
     );
     await pref.set(newPayment.toMap());
 
