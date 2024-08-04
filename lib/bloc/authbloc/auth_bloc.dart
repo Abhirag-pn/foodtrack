@@ -43,6 +43,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(
           AuthErrorState(errormessage: message),
         );
+      } on Exception catch (e) {
+        log("Catch Block");
+        String? message;
+        message = e.toString();
+        log(e.toString());
+        emit(
+          AuthErrorState(errormessage: message),
+        );
       }
     });
 
@@ -97,6 +105,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             AuthErrorState(errormessage: message),
           );
         }
+        on Exception catch (e) {
+        log("Catch Block");
+        String? message;
+        message = e.toString();
+        log(e.toString());
+        emit(
+          AuthErrorState(errormessage: message),
+        );
+      }
       },
     );
 

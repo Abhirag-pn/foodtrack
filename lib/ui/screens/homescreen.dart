@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 homebloc.add(CashPaymentEvent(amount:state.amount ));
                 Navigator.pop(context);
               },onTapGpay: () {
-                homebloc.add(GpayPaymentEvent(amount: state.amount));
+                homebloc.add(GpayPaymentEvent(amount: state.amount,));
                  Navigator.pop(context);
               },);
             },);

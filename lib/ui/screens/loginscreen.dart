@@ -41,8 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
-        listenWhen: (previous, current) => current is AuthActionState,
-        buildWhen: (previous, current) => current is! AuthActionState,
+      
         listener: (context, state) {
           if (state is UserSignUpState) {
             Navigator.popUntil(context, (route) => route.isFirst);
@@ -59,6 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
             Navigator.pushReplacementNamed(context, AdminHomeScreen.routename);
           } else if (state is AuthErrorState) {
+           
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: Colors.red,
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         backgroundColor: primary,
                       ),
                   )
-                  : Column(
+                  :Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [

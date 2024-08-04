@@ -117,7 +117,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         (s, bill) => s + bill.total,
       );
     FlutterPayment flutterPayment = FlutterPayment();
-           flutterPayment.launchUpi(
+          await flutterPayment.launchUpi(
               upiId: "reshmaaravindn9-1@okaxis",
               name:FirebaseAuth.instance.currentUser!.uid.toString(),
               amount: total.toString(),
