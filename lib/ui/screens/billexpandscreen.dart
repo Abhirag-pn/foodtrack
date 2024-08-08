@@ -13,20 +13,6 @@ class BillExpandScreen extends StatelessWidget {
     final bill = ModalRoute.of(context)!.settings.arguments as Bill;
 
     // Method to count food items
-    Map<String, int> countFoodItems(List<Food> items) {
-      Map<String, int> foodCounts = {};
-      for (var item in items) {
-        if (foodCounts.containsKey(item.name)) {
-          foodCounts[item.name] = foodCounts[item.name]! + 1;
-        } else {
-          foodCounts[item.name] = 1;
-        }
-      }
-      return foodCounts;
-    }
-
-
-    Map<String, int> foodCounts = countFoodItems(bill.items);
 
     return Scaffold(
       appBar: AppBar(
@@ -41,16 +27,16 @@ class BillExpandScreen extends StatelessWidget {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(10),
-        itemCount: foodCounts.length,
+        itemCount: bill.items.length,
         itemBuilder: (context, index) {
-          String foodName = foodCounts.keys.elementAt(index);
-          int count = foodCounts[foodName]!;
-          double price = bill.items.firstWhere((item) => item.name == foodName).price;
+         
+          int count = bill.items[index].qty;
+          double price = bill.items[index].price;
           return CustomFoodTile(
           
-            title: '$count $foodName ',
+            title: '$count ${bill.items[index].name} ',
             subtitle: 'Total: ₹${(price * count).toStringAsFixed(2)}',
-            img: bill.items.firstWhere((item) => item.name == foodName).imageLink,
+            img: bill.items[index].imageLink,
           );
         },
       ),

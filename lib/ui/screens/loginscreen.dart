@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: state.runtimeType == AuthLoadingState
                   ? Center(
                     child: CircularProgressIndicator(
-                        backgroundColor: primary,
+                       color: primary,
                       ),
                   )
                   :Column(

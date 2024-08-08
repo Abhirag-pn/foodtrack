@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtrack/bloc/authbloc/auth_bloc.dart';
 import 'package:foodtrack/ui/screens/adminhomescreen.dart';
@@ -58,16 +59,14 @@ class _AdminloginscreenState extends State<Adminloginscreen> {
               padding: const EdgeInsets.all(15.0),
               child: Form(
                 key: _formKey,
-                child: Column(
+                child:  state.runtimeType == AuthLoadingState? CircularProgressIndicator(
+                  color: primary
+
+                  
+                ):Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: state.runtimeType == AuthLoadingState?
-                       [
-                          Center(
-                            child: CircularProgressIndicator(
-                              backgroundColor: primary,
-                            ),
-                          )
-                        ]: [
+                  children:
+                        [
                           const Spacer(),
                           const AuthHeader(
                             subtitle: "Enter admin credentials to continue",

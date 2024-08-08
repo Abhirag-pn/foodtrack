@@ -28,7 +28,8 @@ class AdminprofileexpandBloc
         final snapshot = await FirebaseFirestore.instance
             .collection('users')
             .doc(event.userid)
-            .collection('bills')
+            .collection('bills').where('ispaid', isEqualTo: 'false')
+            .orderBy('date', descending: true)
             .get();
 
         log('Fetched bills: ${snapshot.docs.length}');
