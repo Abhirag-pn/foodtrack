@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtrack/bloc/authbloc/auth_bloc.dart';
-import 'package:foodtrack/ui/screens/adminloginscreen.dart';
+
 import 'package:foodtrack/ui/screens/adminhomescreen.dart';
 import 'package:foodtrack/ui/screens/homescreen.dart';
 import 'package:foodtrack/ui/screens/signinscreen.dart';
@@ -46,9 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is UserSignUpState) {
             Navigator.popUntil(context, (route) => route.isFirst);
             Navigator.pushReplacementNamed(context, SignUpScreen.routename);
-          } else if (state is AdminLoginState) {
-            Navigator.popUntil(context, (route) => route.isFirst);
-            Navigator.pushReplacementNamed(context, Adminloginscreen.routename);
+          
           } else if (state is AuthSuccessState) {
             Navigator.popUntil(context, (route) => route.isFirst);
 
@@ -126,16 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        TextButton(
-                            style: TextButton.styleFrom(
-                                backgroundColor: secondary),
-                            onPressed: () {
-                              BlocProvider.of<AuthBloc>(context)
-                                  .add(ToggleAdminLogin());
-                            },
-                            child: const Text(
-                              "Admin Login",
-                            ))
+                      
                       ],
                     ),
             ),

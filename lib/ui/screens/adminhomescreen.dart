@@ -4,6 +4,7 @@ import 'package:foodtrack/bloc/adminhomebloc/adminhome_bloc.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/screens/adminprofileexpandedscreen.dart';
 import 'package:foodtrack/ui/widgets/customtextfeild.dart';
+import 'package:foodtrack/ui/widgets/usercard.dart';
 import '../widgets/customtile.dart';
 import 'loginscreen.dart';
 
@@ -74,7 +75,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               backgroundColor: primary,
               actions: [IconButton(onPressed: (){
                 adminhomebloc.add(LogoutRequestEvent());
-              }, icon: const Icon(Icons.logout))],
+              }, icon: const Icon(Icons.logout,color: Colors.red,))],
             ),
             body: state is AdminHomeLoadingState
                 ? const Center(
@@ -84,29 +85,20 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     ? state.users.isEmpty
                         ? const Center(
                             child: Text("No users found"),
-                          )
-                        : ListView.separated(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 8),
-                            itemCount: state.users.length,
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(
-                              height: 10,
-                            ),
-                            itemBuilder: (context, index) {
-                              return CustomTile(
-                                onPress: () {
+                          ):
+                         
+                          
+                    GridView.builder(padding: const EdgeInsets.all(10),itemCount: state.users.length,gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10), itemBuilder: (context, index) {
+                      return   UserCard(
+                        img:"https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
+                         title: state.users[index].name,subtitle: "pending",
+                         onPress: () {
                                   adminhomebloc.add(UserTileExpandEvent(
                                       userid: state.users[index].id));
                                 },
-                                title: state.users[index].name,
-                                subtitle: "pending",
-                                img:
-                                    "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg",
-                              );
-                            },
-                          )
-                    : const Center(
+                      );
+                    },)
+                  : const Center(
                         child: Text("Whoops Something went wrong"),
                       ),
           );
@@ -256,3 +248,4 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     );
   }
 }
+

@@ -19,4 +19,4 @@ final class AuthSuccessState extends AuthState {}
 final class AdminAuthSuccessState extends AuthState {}
 final class UserLoginState extends AuthState {}
 final class UserSignUpState extends AuthState {}
-final class AdminLoginState extends AuthState {}
+

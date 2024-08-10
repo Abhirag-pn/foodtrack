@@ -9,10 +9,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtrack/bloc/authbloc/auth_bloc.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/screens/addfoodscreen.dart';
-import 'package:foodtrack/ui/screens/adminloginscreen.dart';
+
 import 'package:foodtrack/ui/screens/adminprofileexpandedscreen.dart';
 import 'package:foodtrack/ui/screens/adminhomescreen.dart';
 import 'package:foodtrack/ui/screens/billexpandscreen.dart';
+import 'package:foodtrack/ui/screens/forgotpasswordscreen.dart';
 import 'package:foodtrack/ui/screens/homescreen.dart';
 import 'package:foodtrack/ui/screens/loginscreen.dart';
 import 'package:foodtrack/ui/screens/paymenthistoryscreen.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'FoodTrack',
         theme: appTheme(context),
-        home: const Splashscreen(),
+        home: const Forgotpasswordscreen(),
         routes: {
           SignUpScreen.routename: (context) => const SignUpScreen(),
           LoginScreen.routename: (context) => const LoginScreen(),
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
           AdminHomeScreen.routename: (context) => const AdminHomeScreen(),
           AdminProfileExpandedScreen.routename: (context) =>
               const AdminProfileExpandedScreen(),
-          Adminloginscreen.routename: (context) => const Adminloginscreen(),
+          
           AddFoodScreen.routename: (context) => const AddFoodScreen(),
         },
       ),

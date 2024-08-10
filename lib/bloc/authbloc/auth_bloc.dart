@@ -32,7 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             emit(AdminAuthSuccessState());
           } else {
             log("emit user Block");
-            emit(AuthSuccessState());
+         emit(AuthSuccessState());
           }
         }
       } on FirebaseException catch (e) {
@@ -129,15 +129,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       },
     );
 
-    on<ToggleAdminLogin>(
-      (event, emit) {
-        emit(AdminLoginState());
-      },
-    );
-    on<ToggleUserLogin>(
-      (event, emit) {
-        emit(UserLoginState());
-      },
-    );
+ 
   }
 }
