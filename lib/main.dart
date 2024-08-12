@@ -13,6 +13,7 @@ import 'package:foodtrack/ui/screens/addfoodscreen.dart';
 import 'package:foodtrack/ui/screens/adminprofileexpandedscreen.dart';
 import 'package:foodtrack/ui/screens/adminhomescreen.dart';
 import 'package:foodtrack/ui/screens/billexpandscreen.dart';
+import 'package:foodtrack/ui/screens/emailunverifiedscreen.dart';
 import 'package:foodtrack/ui/screens/forgotpasswordscreen.dart';
 import 'package:foodtrack/ui/screens/homescreen.dart';
 import 'package:foodtrack/ui/screens/loginscreen.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'FoodTrack',
         theme: appTheme(context),
-        home: const Forgotpasswordscreen(),
+        home: const Splashscreen(),
         routes: {
           SignUpScreen.routename: (context) => const SignUpScreen(),
           LoginScreen.routename: (context) => const LoginScreen(),
@@ -59,7 +60,7 @@ class MyApp extends StatelessWidget {
           AdminHomeScreen.routename: (context) => const AdminHomeScreen(),
           AdminProfileExpandedScreen.routename: (context) =>
               const AdminProfileExpandedScreen(),
-          
+          Emailunverifiedscreen.routename:(context)=> const Emailunverifiedscreen(),
           AddFoodScreen.routename: (context) => const AddFoodScreen(),
         },
       ),

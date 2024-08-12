@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/models/usermodel.dart';
 import 'package:foodtrack/ui/screens/adminhomescreen.dart';
+import 'package:foodtrack/ui/screens/emailunverifiedscreen.dart';
 import 'package:foodtrack/ui/screens/homescreen.dart';
 import 'package:foodtrack/ui/screens/loginscreen.dart';
 
@@ -32,21 +33,26 @@ class _SplashscreenState extends State<Splashscreen> {
                 .collection('users')
                 .doc(user.uid)
                 .get();
-           
-              log("userdoc found");
-              final userob = UserModel.fromMap(userdoc.data()!);
-              if (userob.role == "user") {
-                log("user found");
-                // ignore: use_build_context_synchronously
+
+            log("userdoc found");
+            final userob = UserModel.fromMap(userdoc.data()!);
+            if (userob.role == "user") {
+              log("user found");
+              // ignore: use_build_context_synchronously
+              if (user.emailVerified) {
                 Navigator.pushReplacementNamed(context, HomeScreen.routename);
               } else {
-                log("admin found");
                 Navigator.pushReplacementNamed(
-                    // ignore: use_build_context_synchronously
-                    context, AdminHomeScreen.routename);
+                    context, Emailunverifiedscreen.routename);
               }
+            } else {
+              log("admin found");
+              Navigator.pushReplacementNamed(
+                  // ignore: use_build_context_synchronously
+                  context,
+                  AdminHomeScreen.routename);
             }
-           else {
+          } else {
             log("no user");
             Navigator.pushReplacementNamed(context, LoginScreen.routename);
           }

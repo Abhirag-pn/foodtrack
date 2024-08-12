@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtrack/bloc/authbloc/auth_bloc.dart';
 
 import 'package:foodtrack/ui/screens/adminhomescreen.dart';
+import 'package:foodtrack/ui/screens/emailunverifiedscreen.dart';
 import 'package:foodtrack/ui/screens/homescreen.dart';
 import 'package:foodtrack/ui/screens/signinscreen.dart';
 import 'package:foodtrack/ui/widgets/authfooter.dart';
@@ -41,22 +42,20 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
-      
         listener: (context, state) {
           if (state is UserSignUpState) {
             Navigator.popUntil(context, (route) => route.isFirst);
             Navigator.pushReplacementNamed(context, SignUpScreen.routename);
-          
           } else if (state is AuthSuccessState) {
             Navigator.popUntil(context, (route) => route.isFirst);
 
-            Navigator.pushReplacementNamed(context, HomeScreen.routename);
+            Navigator.pushReplacementNamed(context, Emailunverifiedscreen.routename);
           } else if (state is AdminAuthSuccessState) {
             Navigator.popUntil(context, (route) => route.isFirst);
 
             Navigator.pushReplacementNamed(context, AdminHomeScreen.routename);
-          } else if (state is AuthErrorState) {
-           
+          } 
+           else if (state is AuthErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: Colors.red,
@@ -72,11 +71,11 @@ class _LoginScreenState extends State<LoginScreen> {
               key: _formKey,
               child: state.runtimeType == AuthLoadingState
                   ? Center(
-                    child: CircularProgressIndicator(
-                       color: primary,
+                      child: CircularProgressIndicator(
+                        color: primary,
                       ),
-                  )
-                  :Column(
+                    )
+                  : Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -124,7 +123,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                      
                       ],
                     ),
             ),

@@ -57,6 +57,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<CreateAccountEvent>(
       (event, emit) async {
         try {
+          emit(AuthLoadingState());
           Future<bool> validateUsername(String? username) async {
             final userCollection =
                 FirebaseFirestore.instance.collection('users');
@@ -88,7 +89,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                 .collection("users")
                 .doc(credential.user!.uid)
                 .set(userinfo.toMap());
-
+            await credential.user!.sendEmailVerification();
             emit(AuthSuccessState());
           }
         } on FirebaseAuthException catch (err) {

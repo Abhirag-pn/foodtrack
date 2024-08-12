@@ -14,7 +14,6 @@ final class AuthErrorState extends AuthState {
 
   AuthErrorState({required this.errormessage});
 }
-
 final class AuthSuccessState extends AuthState {}
 final class AdminAuthSuccessState extends AuthState {}
 final class UserLoginState extends AuthState {}

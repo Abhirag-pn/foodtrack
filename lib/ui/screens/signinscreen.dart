@@ -9,6 +9,7 @@ import 'package:foodtrack/utils/validators.dart';
 import '../../bloc/authbloc/auth_bloc.dart';
 import '../widgets/authheader.dart';
 import '../widgets/customtextfeild.dart';
+import 'emailunverifiedscreen.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const routename = 'signup';
@@ -62,8 +63,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Navigator.pushReplacementNamed(context, LoginScreen.routename);
           } else if (state is AuthSuccessState) {
             Navigator.popUntil(context, (route) => route.isFirst);
-            Navigator.pushReplacementNamed(context, HomeScreen.routename);
-          } else if (state is AuthErrorState){
+            Navigator.pushReplacementNamed(context, Emailunverifiedscreen.routename);
+          }
+          
+           else if (state is AuthErrorState){
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: Colors.red,
@@ -78,7 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Form(
               key: _formKey,
               child:state.runtimeType == AuthLoadingState
-                    ? Center(child: CircularProgressIndicator(backgroundColor: primary,),)
+                    ? Center(child: CircularProgressIndicator(color: primary,),)
                     : Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children:  [
