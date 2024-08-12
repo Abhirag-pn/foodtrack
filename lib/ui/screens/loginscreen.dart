@@ -4,6 +4,7 @@ import 'package:foodtrack/bloc/authbloc/auth_bloc.dart';
 
 import 'package:foodtrack/ui/screens/adminhomescreen.dart';
 import 'package:foodtrack/ui/screens/emailunverifiedscreen.dart';
+import 'package:foodtrack/ui/screens/forgotpasswordscreen.dart';
 import 'package:foodtrack/ui/screens/homescreen.dart';
 import 'package:foodtrack/ui/screens/signinscreen.dart';
 import 'package:foodtrack/ui/widgets/authfooter.dart';
@@ -103,6 +104,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           hint: "Password",
                           type: FeildType.password,
                         ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(onPressed: (){
+                  Navigator.of(context).pushNamed(Forgotpasswordscreen.routename);
+                          }, child: Text("Forgot password?"),)),
                         const SizedBox(
                           height: 20,
                         ),

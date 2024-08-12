@@ -62,6 +62,7 @@ class MyApp extends StatelessWidget {
               const AdminProfileExpandedScreen(),
           Emailunverifiedscreen.routename:(context)=> const Emailunverifiedscreen(),
           AddFoodScreen.routename: (context) => const AddFoodScreen(),
+          Forgotpasswordscreen.routename: (context) => const Forgotpasswordscreen(),
         },
       ),
     );

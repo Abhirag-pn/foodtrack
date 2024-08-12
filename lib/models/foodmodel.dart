@@ -21,7 +21,7 @@ class Food {
         name: data['name'] as String,
         type: data['type'] as String,
         imageLink: data['imageLink'] as String,
-        price: data['price'] as double,
+        price: (data['price'] as num).toDouble(),
       );
 
   Map<String, dynamic> toMap() => {

@@ -4,6 +4,7 @@ import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/utils/validators.dart';
 
 class Forgotpasswordscreen extends StatefulWidget {
+  static const routename='forgotpass';
   const Forgotpasswordscreen({super.key});
 
   @override
@@ -26,10 +27,8 @@ class _ForgotpasswordscreenState extends State<Forgotpasswordscreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Enter your email"),
-            const SizedBox(
-              height: 20,
-            ),
+             Text("Enter your email",style: Theme.of(context).textTheme.titleMedium,),
+            
             Form(
                 key: _formKey,
                 child: TextFormField(
@@ -46,12 +45,13 @@ class _ForgotpasswordscreenState extends State<Forgotpasswordscreen> {
 
                      await  FirebaseAuth.instance.sendPasswordResetEmail(
                         email: emailController.text.trim());
-                        
+                     emailController.clear();   
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
                             "Password reset email sent to ${emailController.text.trim()}"),
                       ),
+                      
                     );
                     }on Exception catch (e){
                       ScaffoldMessenger.of(context).showSnackBar(
