@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
           } else if (state is AuthSuccessState) {
             Navigator.popUntil(context, (route) => route.isFirst);
 
-            Navigator.pushReplacementNamed(context, Emailunverifiedscreen.routename);
+            Navigator.pushReplacementNamed(context, HomeScreen.routename);
           } else if (state is AdminAuthSuccessState) {
             Navigator.popUntil(context, (route) => route.isFirst);
 
@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           alignment: Alignment.centerRight,
                           child: TextButton(onPressed: (){
                   Navigator.of(context).pushNamed(Forgotpasswordscreen.routename);
-                          }, child: Text("Forgot password?"),)),
+                          }, child: const Text("Forgot password?"),)),
                         const SizedBox(
                           height: 20,
                         ),

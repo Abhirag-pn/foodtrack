@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodtrack/constants/colors.dart';
@@ -13,6 +15,8 @@ class Forgotpasswordscreen extends StatefulWidget {
 
 class _ForgotpasswordscreenState extends State<Forgotpasswordscreen> {
   final _formKey = GlobalKey<FormState>();
+  int countdown=30;
+  bool pressed=false;
 
   final TextEditingController emailController = TextEditingController();
   @override
@@ -39,17 +43,35 @@ class _ForgotpasswordscreenState extends State<Forgotpasswordscreen> {
               height: 20,
             ),
             ElevatedButton(
-                onPressed: ()async {
+              
+                onPressed: !pressed?()async {
                   if (_formKey.currentState!.validate()) {
                     try{
+                      pressed=true;
+                     
+                     Timer.periodic(const Duration(seconds: 1), (timer){
+                      countdown--;
+                      setState(() {
+                        
+                      });
+                      if(countdown==0){
+                        pressed=false;
+                        countdown=30;
+                        
+                     timer.cancel();
 
-                     await  FirebaseAuth.instance.sendPasswordResetEmail(
-                        email: emailController.text.trim());
-                     emailController.clear();   
+                      }
+                       
+                     });
+                      String email=emailController.text.trim();
+                       FirebaseAuth.instance.sendPasswordResetEmail(
+                        email: email);
+                     emailController.clear();  
+                      
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                            "Password reset email sent to ${emailController.text.trim()}"),
+                            "Password reset email sent to $email"),
                       ),
                       
                     );
@@ -64,8 +86,9 @@ class _ForgotpasswordscreenState extends State<Forgotpasswordscreen> {
                     }
                     
                   }
-                },
-                child: const Text("Forgot Password"))
+                }:null,
+                child:  Text(pressed?"Wait $countdown seconds":" Sent Reset Link"),
+                )
           ],
         ),
       ),
