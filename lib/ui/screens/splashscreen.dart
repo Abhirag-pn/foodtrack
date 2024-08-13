@@ -33,7 +33,8 @@ class _SplashscreenState extends State<Splashscreen> {
                 .collection('users')
                 .doc(user.uid)
                 .get();
-
+            log(userdoc.toString());
+            log(user.uid);
             log("userdoc found");
             final userob = UserModel.fromMap(userdoc.data()!);
             if (userob.role == "user") {

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -38,8 +40,9 @@ class AdminhomeBloc extends Bloc<AdminhomeEvent, AdminhomeState> {
         );
         await docRef.set(newfood.toMap());
         emit(FoodAddedState());
-      } catch (e) {
+      } catch (e,s) {
         emit(AdminHomeErrorState(errmsg: e.toString()));
+        log(s.toString());
       }
     });
     on<UserTileExpandEvent>((event, emit) async {

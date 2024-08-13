@@ -5,7 +5,6 @@ import 'package:foodtrack/constants/colors.dart';
 import 'package:foodtrack/ui/screens/adminprofileexpandedscreen.dart';
 import 'package:foodtrack/ui/widgets/customtextfeild.dart';
 import 'package:foodtrack/ui/widgets/usercard.dart';
-import '../widgets/customtile.dart';
 import 'loginscreen.dart';
 
 class AdminHomeScreen extends StatefulWidget {
@@ -73,9 +72,36 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             appBar: AppBar(
               title: const Text("Admin Panel"),
               backgroundColor: primary,
-              actions: [IconButton(onPressed: (){
-                adminhomebloc.add(LogoutRequestEvent());
-              }, icon: const Icon(Icons.logout,color: Colors.red,))],
+              actions: [IconButton(onPressed:  () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return AlertDialog(
+                                                        title: Center(
+                                                          child: Text(
+                                                              "Do you wish to logout?",style: Theme.of(context).textTheme.titleMedium,),
+                                                        ),
+                                                            actionsAlignment: MainAxisAlignment.spaceEvenly,
+                                                        actions: [
+                                                          TextButton(
+                                                              onPressed: () {
+                                                                adminhomebloc.add(
+                                                                  LogoutRequestEvent()
+                                                                );
+                                                              },
+                                                              child:
+                                                                const  Text("Yes",style: TextStyle(color:Colors.red),)),
+                                                          TextButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(context);
+                                                              },
+                                                              child:
+                                                                const  Text("No",)),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                }, icon: const Icon(Icons.logout,color: Colors.red,))],
             ),
             body: state is AdminHomeLoadingState
                 ? const Center(

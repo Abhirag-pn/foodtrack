@@ -10,7 +10,6 @@ import 'package:foodtrack/ui/screens/loginscreen.dart';
 import 'package:foodtrack/ui/screens/paymenthistoryscreen.dart';
 import 'package:foodtrack/ui/widgets/custombottomsheet.dart';
 import 'package:intl/intl.dart';
-
 import '../widgets/billtile.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -38,44 +37,54 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
     return BlocProvider.value(
       value: homebloc,
       child: BlocConsumer<HomeBloc, HomeState>(
         listenWhen: (previous, current) => current is HomeActionState,
-        buildWhen: (previous, current) => current is !HomeActionState,
+        buildWhen: (previous, current) => current is! HomeActionState,
         listener: (context, state) {
           if (state is BillExpandedState) {
             Navigator.pushNamed(context, BillExpandScreen.routename,
                 arguments: state.bill);
           }
           if (state is PaymentRequestSentState) {
-           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Payment Request Have Been Sent!")));
-           homebloc.add(GetBillDetailsEvent());
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("Payment Request Have Been Sent!")));
+            homebloc.add(GetBillDetailsEvent());
           }
           if (state is HomeErrorState) {
-           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.errmsg)));
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.errmsg)));
           }
           if (state is AddFoodState) {
             Navigator.pushNamed(context, AddFoodScreen.routename);
           }
           if (state is PayementState) {
-            showModalBottomSheet(context: context, builder:  (context) {
-              return CustomBottomSheet(onTapCash: () {
-                homebloc.add(CashPaymentEvent(amount:state.amount ));
-                Navigator.pop(context);
-              },onTapGpay: () {
-                homebloc.add(GpayPaymentEvent(amount: state.amount,));
-                 Navigator.pop(context);
-              },);
-            },);
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return CustomBottomSheet(
+                  onTapCash: () {
+                    homebloc.add(CashPaymentEvent(amount: state.amount));
+                    Navigator.pop(context);
+                  },
+                  onTapGpay: () {
+                    homebloc.add(GpayPaymentEvent(
+                      amount: state.amount,
+                    ));
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            );
           }
           if (state is HistoryState) {
-           Navigator.of(context).pushNamed(PaymentHistoryScreen.routename,arguments:state.id);
+            Navigator.of(context)
+                .pushNamed(PaymentHistoryScreen.routename, arguments: state.id);
           }
           if (state is LogoutState) {
-          Navigator.popUntil(context, (route) => route.isFirst);
-          Navigator.pushReplacementNamed(context, LoginScreen.routename);
+            Navigator.popUntil(context, (route) => route.isFirst);
+            Navigator.pushReplacementNamed(context, LoginScreen.routename);
           }
         },
         builder: (context, state) {
@@ -157,10 +166,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                             const Spacer(),
                                             GestureDetector(
                                                 onTap: () {
-                                                  homebloc.add(LogoutRequestEvent());
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return AlertDialog(
+                                                        title: Center(
+                                                          child: Text(
+                                                              "Do you wish to logout?",style: Theme.of(context).textTheme.titleMedium,),
+                                                        ),
+                                                            actionsAlignment: MainAxisAlignment.spaceEvenly,
+                                                        actions: [
+                                                          TextButton(
+                                                              onPressed: () {
+                                                                homebloc.add(
+                                                                  LogoutRequestEvent()
+                                                                );
+                                                              },
+                                                              child:
+                                                                const  Text("Yes",style: TextStyle(color: Colors.red),)),
+                                                          TextButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(context);
+                                                              },
+                                                              child:
+                                                                const  Text("No",)),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
                                                 },
                                                 child: const Icon(
-                                                    Icons.logout,color: Colors.red,))
+                                                  Icons.logout,
+                                                  color: Colors.red,
+                                                ))
                                           ],
                                         ),
                                         Divider(
@@ -180,17 +218,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                           height: 8,
                                         ),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             SizedBox(
                                                 child: ElevatedButton(
                                               onPressed: () {
-                                                if(state.bills.fold<double>(0, (sum, bill) => sum + bill.total).toDouble()>0)
-                                          {    homebloc.add(PayClickedEvent(amount:state.bills.fold<double>(0, (sum, bill) => sum + bill.total).toDouble() ));}
-                                          else
-                                          {
-                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("There's nothing to pay")));
-                                          }
+                                                if (state.bills
+                                                        .fold<double>(
+                                                            0,
+                                                            (sum, bill) =>
+                                                                sum +
+                                                                bill.total)
+                                                        .toDouble() >
+                                                    0) {
+                                                  homebloc.add(PayClickedEvent(
+                                                      amount: state.bills
+                                                          .fold<double>(
+                                                              0,
+                                                              (sum, bill) =>
+                                                                  sum +
+                                                                  bill.total)
+                                                          .toDouble()));
+                                                } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                          content: Text(
+                                                              "There's nothing to pay")));
+                                                }
                                               },
                                               style: ElevatedButton.styleFrom(
                                                   shape: RoundedRectangleBorder(
@@ -224,11 +279,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         color: secondary),
                                               ),
                                             )),
-                                           
                                             OutlinedButton(
                                                 onPressed: () {
-                                                  
-                                                  homebloc.add(HistoryClickedEvent(id: state.id));
+                                                  homebloc.add(
+                                                      HistoryClickedEvent(
+                                                          id: state.id));
                                                 },
                                                 child: Text(
                                                   "History",
@@ -282,33 +337,42 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         FontWeight.w500),
                                           ),
                                         ),
-                                     
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                           const Divider(),
+                                        const Divider(),
                                         Expanded(
-                                          child: state.bills.isNotEmpty?ListView.builder(
-                                            padding: const EdgeInsets.only(
-                                                top: 15, bottom: 15),
-                                            itemCount: state.bills.length,
-                                            itemBuilder: (context, index) {
-                                              return BillTile(
-                                                  onpress: () {
-                                                  
-                                                    homebloc.add(
-                                                        BillExpandEvent(
-                                                            bill: state
-                                                                .bills[index]));
+                                          child: state.bills.isNotEmpty
+                                              ? ListView.builder(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 15, bottom: 15),
+                                                  itemCount: state.bills.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return BillTile(
+                                                        onpress: () {
+                                                          homebloc.add(
+                                                              BillExpandEvent(
+                                                                  bill: state
+                                                                          .bills[
+                                                                      index]));
+                                                        },
+                                                        title: DateFormat(
+                                                                'EEEE, d MMMM')
+                                                            .format(state
+                                                                .bills[index]
+                                                                .date)
+                                                            .toString(),
+                                                        subtitle:
+                                                            "₹${state.bills[index].total}",
+                                                        img:
+                                                            "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png");
                                                   },
-                                                  title:
-                                                     DateFormat('EEEE, d MMMM').format(state.bills[index].date).toString(),
-                                                  subtitle:
-                                                      "₹${state.bills[index].total}",
-                                                  img:
-                                                      "https://static.vecteezy.com/system/resources/previews/025/268/632/non_2x/chicken-makhani-with-ai-generated-free-png.png");
-                                            },
-                                          ):const Center(child: Text("No bills"),),
+                                                )
+                                              : const Center(
+                                                  child: Text("No bills"),
+                                                ),
                                         ),
                                       ],
                                     ),
@@ -326,4 +390,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
