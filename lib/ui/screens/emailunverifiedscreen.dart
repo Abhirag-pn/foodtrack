@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodtrack/ui/screens/homescreen.dart';
+import 'package:foodtrack/ui/screens/loginscreen.dart';
 
 class Emailunverifiedscreen extends StatefulWidget {
   static const routename = 'emailunverified';
@@ -91,7 +92,7 @@ class _EmailunverifiedscreenState extends State<Emailunverifiedscreen> {
               child: Text(pressed ? "Wait $countdown seconds" : "Resend"),
             ),
             TextButton(child: const Text("Go back"), onPressed: () {
-              Navigator.pushReplacementNamed(context, HomeScreen.routename);
+              Navigator.pushReplacementNamed(context, LoginScreen.routename);
             }),
             const SizedBox(
               height: 20,
